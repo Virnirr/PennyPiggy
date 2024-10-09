@@ -1,0 +1,119 @@
+*,  
+*::before,  
+*::after {  
+	box-sizing: border-box;  
+  margin: 0;
+  padding: 0;
+}
+
+body {
+   background-color: var(--color-background-page);
+   color: var(--color-text); /* default text color */
+   margin: 0px;
+   font-family: "Nunito Sans", sans-serif;
+   font-size: var(--font-size-base);
+}
+
+header {
+  background-color: var(--color-background-header);
+  color: var(--color-subtext);
+  padding: 2em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Noto Serif", serif;
+}
+
+a {
+  color: var(--color-links);
+}
+
+p {
+  color: var(--color-subtext);
+}
+
+h1 { 
+  color: var(--color-primary-light);
+  font-size: var(--font-size-xl);
+}
+
+h2 {
+  font-size: var(--font-size-lg);
+}
+
+h3 {
+  font-size: var(--font-size-md);
+}
+
+button {
+  background-color: var(--color-button-background);
+  color: var(--color-button-text);
+
+}
+
+section {
+  padding: 5em;
+}
+
+ul > li {
+  list-style-type: none;
+}
+
+li > a {
+  color: var(--color-links);
+  text-decoration: none;
+}
+
+li > a:hover {
+  color: var(--color-link-hover);
+}
+
+.bg-light {
+  background-color: var(--color-background-gray);
+}
+
+.bg-pink {
+  background-color: var(--color-background-header);
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 5em;
+}
+
+.flex-container > div {
+  flex: 1; /* Makes all children take up equal space */
+  padding: 10px;
+}
+
+.flex-container > div > h2 {
+  margin-bottom: 20px;
+}
+
+.flex-container > div > p {
+  line-height: 1.5;
+  font-size: 1.2rem;
+}
+
+.piggytitle {
+  text-align: left;
+  margin: auto;
+  width: 80%;
+  font-weight: bold;
+}
+
+footer {
+  text-align: center;
+}
+
+svg.icon {
+  height: 5em;
+  width: 5em;
+  fill: currentColor;
+}

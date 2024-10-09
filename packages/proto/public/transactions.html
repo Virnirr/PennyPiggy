@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style/token.css" />
+  <link rel="stylesheet" href="./style/page.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+
+  <title>Transaction Form</title>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="/">
+          <img
+            src="./static/pennypiggylogo.svg"
+            alt="pennypiggylogo"
+            style="width: 50px; border-radius: 50%"
+          />
+          PennyPiggy
+        </a>
+      </li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="transactions.html">Transactions</a></li>
+        <li><a href="budget.html">Budget</a></li>
+        <li><a href="bills.html">Bills</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="signup.html">SignUp</a></li>
+        <li><a href="asset_account.html">Asset Account</a></li>
+    </ul>
+  </nav>
+  <main>
+    <h1>Transaction Form</h1>
+    <form action="/submit-transaction" method="post">
+      <label for="description">Description:</label>
+      <input type="text" id="description" name="description" required><br><br>
+  
+      <label for="source-account">Source Account (Bank):</label>
+      <input type="text" id="source-account" name="source-account" required><br><br>
+  
+      <label for="destination-account">Destination Account:</label>
+      <input type="text" id="destination-account" name="destination-account" required><br><br>
+  
+      <label for="amount">Amount:</label>
+      <input type="number" id="amount" name="amount" step="0.01" required><br><br>
+  
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" required><br><br>
+  
+      <label for="category">Category:</label>
+      <input type="text" id="category" name="category" required><br><br>
+  
+      <label for="budget-category">Budget Category (if any):</label>
+      <input type="text" id="budget-category" name="budget-category"><br><br>
+  
+      <label for="tags">Tags (if any):</label>
+      <input type="text" id="tags" name="tags"><br><br>
+
+      <label for="notes">Notes</label>
+      <textarea id="notes" name="notes" rows="4" cols="50"></textarea><br><br>
+      
+      <button type="submit">Submit</button>
+    </form>
+  </main>
+  <footer>
+    <p>&copy; 2024 PennyPiggy</p>
+  </footer>
+</body>
+</html>

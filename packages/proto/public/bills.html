@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./style/token.css" />
+  <link rel="stylesheet" href="./style/page.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="/">
+          <img
+            src="./static/pennypiggylogo.svg"
+            alt="pennypiggylogo"
+            style="width: 50px; border-radius: 50%"
+          />
+          PennyPiggy
+        </a>
+      </li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="transactions.html">Transactions</a></li>
+        <li><a href="budget.html">Budget</a></li>
+        <li><a href="bills.html">Bills</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="signup.html">SignUp</a></li>
+        <li><a href="asset_account.html">Asset Account</a></li>
+    </ul>
+  </nav>
+  <main>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Amount
+            </th>
+            <th>
+              Paid this period
+            </th>
+            <th>
+              Next expected payment
+            </th>
+            <th>
+              Repeats
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Rent</td>
+            <td>$1000</td>
+            <td>October 1st, 2024</td>
+            <td>monthly</td>
+          </tr>
+          <tr>
+            <td>Health Insurance</td>
+            <td>$100</td>
+            <td>October 2nd, 2024</td>
+            <td>monthly</td>
+          </tr>
+          <tr>
+            <td>Netflix Bills</td>
+            <td>$20</td>
+            <td>October 1st, 2024</td>
+            <td>monthly</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button type="button">Add new bills</button>
+  </main>
+  <footer>
+    <p>&copy; 2024 PennyPiggy</p>
+  </footer>
+</body>
+</html>

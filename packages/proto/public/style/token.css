@@ -1,0 +1,56 @@
+:root {
+
+  /* Colors */
+  --color-background-page: #f1f1f1;
+  --color-background-page-inverted: #595555;
+
+  --color-background-header: rgba(193, 140, 123, 0.166);
+  --color-background-header-inverted: #595555;
+
+  --color-background-gray: #e0e0e067;
+  --color-background-gray-inverted: #595555;
+
+  --color-primary-light: rgba(185, 102, 67, 0.847);
+  --color-primary-inverted: #595555;
+
+  --color-subtext: #3d3e42d7; 
+  --color-subtext-inverted: #c6c6c6;
+
+  --color-text: #434345;
+  --color-text-inverted: #c6c6c6;
+
+  /* This is for some layouts later */
+  --color-in-out: #325263;
+  --color-bills-to-pay: #385a61;
+  --color-left-to-spend: #3b6361;
+  --color-net-worth: #386446;
+  --color-green-text: rgba(17, 192, 17, 0.88);
+  --color-red-text: rgba(191, 51, 51, 0.754);
+
+
+  /* Links related */
+  --color-links: rgba(110, 109, 109, 0.901);
+  --color-link-hover: #000000;
+
+  /* button */
+  --color-button-background: rgb(230, 158, 134);
+  --color-button-text: #ffffff;
+
+
+  /* Fonts */
+  --font-size-base: 1rem;
+  --font-scaling: 1.333;
+  --font-size-xs: calc(
+  var(--font-size-sm) / var(--font-scaling)
+  );
+  --font-size-sm: var(--font-size-base);
+  --font-size-md: calc(
+  var(--font-size-sm) * var(--font-scaling)
+  );
+  --font-size-lg: calc(
+  var(--font-size-md) * var(--font-scaling)
+  );
+  --font-size-xl: calc(
+  var(--font-size-lg) * var(--font-scaling) * 2
+  );
+}
