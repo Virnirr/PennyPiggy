@@ -1,11 +1,3 @@
-*,  
-*::before,  
-*::after {  
-	box-sizing: border-box;  
-  margin: 0;
-  padding: 0;
-}
-
 body {
    background-color: var(--color-background-page);
    color: var(--color-text); /* default text color */
@@ -18,6 +10,12 @@ header {
   background-color: var(--color-background-header);
   color: var(--color-subtext);
   padding: 2em;
+  display: flex;
+  flex-direction: column;
+
+  & > button{
+    margin-left: clamp(2rem, 22vw, 50em);
+  }
 }
 
 h1,
@@ -53,7 +51,16 @@ h3 {
 button {
   background-color: var(--color-button-background);
   color: var(--color-button-text);
+  width: 150px;
+  height: 50px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
 
+  &:hover {
+    background-color: var(--color-button-hover);
+    cursor: pointer;
+  }
 }
 
 section {
@@ -81,24 +88,26 @@ li > a:hover {
   background-color: var(--color-background-header);
 }
 
-.flex-container {
+.section-flex-container {
   display: flex;
   justify-content: space-between;
-  gap: 5em;
-}
+  flex-direction: row;
+  gap: 3em;
+  flex-wrap: wrap;
 
-.flex-container > div {
-  flex: 1; /* Makes all children take up equal space */
-  padding: 10px;
-}
+  & > div {
+    flex: 1; /* Makes all children take up equal space */
+    padding: 10px;
 
-.flex-container > div > h2 {
-  margin-bottom: 20px;
-}
+    & > h2 {
+      margin-bottom: 20px;
+    }
 
-.flex-container > div > p {
-  line-height: 1.5;
-  font-size: 1.2rem;
+    & > p {
+      line-height: 1.5;
+      font-size: 1.2rem;
+    }
+  }
 }
 
 .piggytitle {
@@ -106,6 +115,14 @@ li > a:hover {
   margin: auto;
   width: 80%;
   font-weight: bold;
+  width: fit-content;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
 }
 
 footer {
@@ -116,4 +133,39 @@ svg.icon {
   height: 5em;
   width: 5em;
   fill: currentColor;
+}
+
+.in-and-out-period {
+  background: var(--color-in-out);
+  color: var(--color-text-inverted);
+}
+
+.bills-to-pay {
+  background: var(--color-bills-to-pay);
+  color: var(--color-text-inverted);
+}
+
+.left-to-spend {
+  background: var(--color-left-to-spend);
+  color: var(--color-text-inverted);
+}
+
+.networth {
+  background: var(--color-net-worth);
+  color: var(--color-text-inverted);
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  
+  & > div {
+    border-left: 1px solid var(--color-text);
+    padding-left: 1em;
+  
+    & > p {
+      color: var(--color-text-inverted);
+    }
+  }
 }

@@ -20,11 +20,12 @@
   --color-text-inverted: #c6c6c6;
 
   /* This is for some layouts later */
-  --color-in-out: #325263;
-  --color-bills-to-pay: #385a61;
-  --color-left-to-spend: #3b6361;
-  --color-net-worth: #386446;
-  --color-green-text: rgba(17, 192, 17, 0.88);
+  --color-in-out: #327092a8;
+  --color-bills-to-pay: #4a8d9acc;
+  --color-left-to-spend: #44908c;
+  --color-net-worth: #377a4d8a;
+  
+  --color-green-text: rgba(33, 146, 33, 0.88);
   --color-red-text: rgba(191, 51, 51, 0.754);
 
 
@@ -35,6 +36,7 @@
   /* button */
   --color-button-background: rgb(230, 158, 134);
   --color-button-text: #ffffff;
+  --color-button-hover: rgb(230, 158, 134, 0.8);
 
 
   /* Fonts */

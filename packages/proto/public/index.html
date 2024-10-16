@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style/token.css" />
     <link rel="stylesheet" href="./style/page.css" />
+    <link rel="stylesheet" href="./style/reset.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,9 +15,9 @@
   </head>
   <body>
     <nav>
-      <ul>
-        <li>
-          <a href="/">
+      <ul class="navbar-container">
+        <li class="navbar-item">
+          <a href="/" style="vertical-align: middle;">
             <img
               src="./static/pennypiggylogo.svg"
               alt="pennypiggylogo"
@@ -25,17 +26,17 @@
             PennyPiggy
           </a>
         </li>
-          <li><a href="dashboard.html">Dashboard</a></li>
-          <li><a href="transactions.html">Transactions</a></li>
-          <li><a href="budget.html">Budget</a></li>
-          <li><a href="bills.html">Bills</a></li>
-          <li><a href="login.html">Login</a></li>
-          <li><a href="signup.html">SignUp</a></li>
-          <li><a href="asset_account.html">Asset Account</a></li>
+        <li class="navbar-item"><a href="dashboard.html">Dashboard</a></li>
+        <li class="navbar-item"><a href="transactions.html">Transactions</a></li>
+        <li class="navbar-item"><a href="budget.html">Budget</a></li>
+        <li class="navbar-item"><a href="bills.html">Bills</a></li>
+        <li class="navbar-item"><a href="login.html">Login</a></li>
+        <li class="navbar-item"><a href="signup.html">SignUp</a></li>
+        <li class="navbar-item"><a href="asset_account.html">Asset Account</a></li>
       </ul>
     </nav>
     <header>
-      <section class="flex-container piggytitle">
+      <section class="section-flex-container piggytitle">
         <img
           src="./static/pennypiggylogo.svg"
           alt="pennypiggylogo"
@@ -50,7 +51,7 @@
     </header>
     <main>
       <section class="bg-light">
-        <div class="flex-container" style="text-align:center;">
+        <div class="section-flex-container" style="text-align:center;">
           <div>
             <svg class="icon">
               <use href="./icons/browser.svg#icon-browser"></use>
@@ -75,15 +76,20 @@
         </div>
       </section>
       <section class="bg-pink">
-        <div>
-          <h2>Budgets, categories and tags</h2>
-          <p>Do you like working with tags? Need to budget your expenses? Want to categorize hobby expenses? PennyPiggy supports all that.</p>
-          <img />
+        <div class="section-flex-container">
+          <div>
+            <h2>Budgets, categories and tags</h2>
+            <p>Do you like working with tags? Need to budget your expenses? Want to categorize hobby expenses? PennyPiggy supports all that.</p>
+          </div>
+          <img src="./assets/budget.png" alt="budget" width="600px"/>
         </div>
-        <div>
-          <h2>Reports and Visualizations</h2>
-          <p>PennyPiggy has advanced reporting capabilities, showing your expenses per week, month or year. But it can also help you audit your accounts with detailed list views. Or perhaps compare budgets or tags? It's all possible.</p>
-          <img />
+        <br /> <br />
+        <div class="section-flex-container">
+          <img src="./assets/reports.png" alt="report" width="600px"/>
+          <div>
+            <h2>Reports and Visualizations</h2>
+            <p>PennyPiggy has advanced reporting capabilities, showing your expenses per week, month or year. But it can also help you audit your accounts with detailed list views. Or perhaps compare budgets or tags? It's all possible.</p>
+          </div>
         </div>
       </section>
     </main>
