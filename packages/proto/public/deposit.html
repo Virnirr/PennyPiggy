@@ -20,7 +20,7 @@
     <nav>
       <ul class="navbar-container">
         <li class="navbar-item">
-          <a href="/" style="vertical-align: middle">
+          <a href="/" style="vertical-align: middle;">
             <img
               src="./static/pennypiggylogo.svg"
               alt="pennypiggylogo"
@@ -30,19 +30,21 @@
           </a>
         </li>
         <li class="navbar-item"><a href="dashboard.html">Dashboard</a></li>
-        <li class="navbar-item">
-          <a href="transactions.html">Transactions</a>
+    
+        <!-- Dropdown for Transactions -->
+        <li class="navbar-item dropdown">
+          <a href="transactions.html" class="dropbtn">Transactions</a>
+          <div class="dropdown-content">
+            <a href="withdrawal.html">Withdrawal</a>
+            <a href="deposit.html">Deposit</a>
+          </div>
         </li>
+    
         <li class="navbar-item"><a href="budget.html">Budget</a></li>
         <li class="navbar-item"><a href="bills.html">Bills</a></li>
         <li class="navbar-item"><a href="login.html">Login</a></li>
         <li class="navbar-item"><a href="signup.html">SignUp</a></li>
-        <li class="navbar-item">
-          <a href="asset_account.html">Asset Account</a>
-        </li>
-        <li class="navbar-item">
-          <a href="withdrawal.html">Withdrawal History</a>
-        </li>
+        <li class="navbar-item"><a href="asset_account.html">Asset Account</a></li>
       </ul>
     </nav>
     <main class="transactions">
