@@ -27,7 +27,16 @@
           </a>
         </li>
         <li class="navbar-item"><a href="dashboard.html">Dashboard</a></li>
-        <li class="navbar-item"><a href="transactions.html">Transactions</a></li>
+    
+        <!-- Dropdown for Transactions -->
+        <li class="navbar-item dropdown">
+          <a href="transactions.html" class="dropbtn">Transactions</a>
+          <div class="dropdown-content">
+            <a href="withdrawal.html">Withdrawal</a>
+            <a href="deposit.html">Deposit</a>
+          </div>
+        </li>
+    
         <li class="navbar-item"><a href="budget.html">Budget</a></li>
         <li class="navbar-item"><a href="bills.html">Bills</a></li>
         <li class="navbar-item"><a href="login.html">Login</a></li>
@@ -36,7 +45,7 @@
       </ul>
     </nav>
     <header>
-      <section class="section-flex-container piggytitle">
+      <section class="piggytitle">
         <img
           src="./static/pennypiggylogo.svg"
           alt="pennypiggylogo"
@@ -46,10 +55,10 @@
           <h1>PennyPiggy</h1> <br />
           <h3 style="font-size: 1.5em">Keep track of your expenses and income</h3>
         </div>
+        <button>Get Started</button>
       </section>
-      <button>Get Started</button>
     </header>
-    <main>
+    <main class="home">
       <section class="bg-light">
         <div class="section-flex-container" style="text-align:center;">
           <div>

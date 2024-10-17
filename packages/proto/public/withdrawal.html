@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style/token.css" />
+  <link rel="stylesheet" href="./style/page.css" />
+  <link rel="stylesheet" href="./style/reset.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+
+  <title>Transaction Form</title>
+</head>
+<body>
+  <nav>
+    <ul class="navbar-container">
+      <li class="navbar-item">
+        <a href="/" style="vertical-align: middle;">
+          <img
+            src="./static/pennypiggylogo.svg"
+            alt="pennypiggylogo"
+            style="width: 50px; border-radius: 50%"
+          />
+          PennyPiggy
+        </a>
+      </li>
+      <li class="navbar-item"><a href="dashboard.html">Dashboard</a></li>
+  
+      <!-- Dropdown for Transactions -->
+      <li class="navbar-item dropdown">
+        <a href="transactions.html" class="dropbtn">Transactions</a>
+        <div class="dropdown-content">
+          <a href="withdrawal.html">Withdrawal</a>
+          <a href="deposit.html">Deposit</a>
+        </div>
+      </li>
+  
+      <li class="navbar-item"><a href="budget.html">Budget</a></li>
+      <li class="navbar-item"><a href="bills.html">Bills</a></li>
+      <li class="navbar-item"><a href="login.html">Login</a></li>
+      <li class="navbar-item"><a href="signup.html">SignUp</a></li>
+      <li class="navbar-item"><a href="asset_account.html">Asset Account</a></li>
+    </ul>
+  </nav>
+  <main class="transactions">
+    <section class="transactions-graph">Some Graph</section>
+    <section class="transactions-graph">Some Graph</section>
+    <section class="transactions-graph">Some Graph</section>
+    <section class="transactions-history">
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Source account</th>
+            <th>Destination account</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Groceries</td>
+            <td>$50.00</td>
+            <td>2024-01-01</td>
+            <td>Checking</td>
+            <td>Supermarket</td>
+            <td>Food</td>
+          </tr>
+          <tr>
+            <td>Rent</td>
+            <td>$1200.00</td>
+            <td>2024-01-02</td>
+            <td>Checking</td>
+            <td>Landlord</td>
+            <td>Housing</td>
+          </tr>
+          <tr>
+            <td>Utilities</td>
+            <td>$150.00</td>
+            <td>2024-01-03</td>
+            <td>Checking</td>
+            <td>Utility Company</td>
+            <td>Bills</td>
+          </tr>
+          <tr>
+            <td>Internet</td>
+            <td>$60.00</td>
+            <td>2024-01-04</td>
+            <td>Checking</td>
+            <td>ISP</td>
+            <td>Bills</td>
+          </tr>
+          <tr>
+            <td>Dining Out</td>
+            <td>$30.00</td>
+            <td>2024-01-05</td>
+            <td>Checking</td>
+            <td>Restaurant</td>
+            <td>Food</td>
+          </tr>
+          <tr>
+            <td>Gas</td>
+            <td>$40.00</td>
+            <td>2024-01-06</td>
+            <td>Checking</td>
+            <td>Gas Station</td>
+            <td>Transport</td>
+          </tr>
+          <tr>
+            <td>Subscription</td>
+            <td>$10.00</td>
+            <td>2024-01-07</td>
+            <td>Checking</td>
+            <td>Streaming Service</td>
+            <td>Entertainment</td>
+          </tr>
+          <tr>
+            <td>Clothing</td>
+            <td>$100.00</td>
+            <td>2024-01-08</td>
+            <td>Checking</td>
+            <td>Clothing Store</td>
+            <td>Shopping</td>
+          </tr>
+          <tr>
+            <td>Gym Membership</td>
+            <td>$25.00</td>
+            <td>2024-01-09</td>
+            <td>Checking</td>
+            <td>Gym</td>
+            <td>Health</td>
+          </tr>
+          <tr>
+            <td>Car Payment</td>
+            <td>$300.00</td>
+            <td>2024-01-10</td>
+            <td>Checking</td>
+            <td>Auto Loan</td>
+            <td>Transport</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section>
+      <div class="history">
+        <div class="history-card">
+          <div class="history-card-item">
+            <h3>May 2024</h3>
+          </div>
+          <div class="history-card-item">
+            <span>Transactions</span>
+            <span>27</span>
+          </div>
+          <div class="history-card-item">
+            <span>Spent</span>
+            <span>$-207.50</span>
+          </div>
+        </div>
+        <div class="history-card">
+          <div class="history-card-item">
+            <h3>April 2024</h3>
+          </div>
+          <div class="history-card-item">
+            <span>Transactions</span>
+            <span>27</span>
+          </div>
+          <div class="history-card-item">
+            <span>Spent</span>
+            <span>$-207.50</span>
+          </div>
+        </div>
+        <div class="history-card">
+          <div class="history-card-item">
+            <h3>March 2024</h3>
+          </div>
+          <div class="history-card-item">
+            <span>Transactions</span>
+            <span>27</span>
+          </div>
+          <div class="history-card-item">
+            <span>Spent</span>
+            <span>$-207.50</span>
+          </div>
+        </div>
+        <div class="history-card">
+          <div class="history-card-item">
+            <h3>Februrary 2024</h3>
+          </div>
+          <div class="history-card-item">
+            <span>Transactions</span>
+            <span>27</span>
+          </div>
+          <div class="history-card-item">
+            <span>Spent</span>
+            <span>$-207.50</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 PennyPiggy</p>
+  </footer>
+</body>
+</html>
