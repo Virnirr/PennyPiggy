@@ -12,38 +12,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
 
     <title>PennyPiggy</title>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+        }
+      }
+    </script>
+    <script type="module">
+      import { define } from "@calpoly/mustang";
+      import { NavigationBarElement } from "/scripts/navbar.component.js";
+    
+      define({
+        "nav-bar": NavigationBarElement
+      });
+    </script>
   </head>
   <body>
-    <nav>
-      <ul class="navbar-container">
-        <li class="navbar-item">
-          <a href="/" style="vertical-align: middle;">
-            <img
-              src="./static/pennypiggylogo.svg"
-              alt="pennypiggylogo"
-              style="width: 50px; border-radius: 50%"
-            />
-            PennyPiggy
-          </a>
-        </li>
-        <li class="navbar-item"><a href="dashboard.html">Dashboard</a></li>
-    
-        <!-- Dropdown for Transactions -->
-        <li class="navbar-item dropdown">
-          <a href="transactions.html" class="dropbtn">Transactions</a>
-          <div class="dropdown-content">
-            <a href="withdrawal.html">Withdrawal</a>
-            <a href="deposit.html">Deposit</a>
-          </div>
-        </li>
-    
-        <li class="navbar-item"><a href="budget.html">Budget</a></li>
-        <li class="navbar-item"><a href="bills.html">Bills</a></li>
-        <li class="navbar-item"><a href="login.html">Login</a></li>
-        <li class="navbar-item"><a href="signup.html">SignUp</a></li>
-        <li class="navbar-item"><a href="asset_account.html">Asset Account</a></li>
-      </ul>
-    </nav>
+    <nav-bar></nav-bar>
     <header>
       <section class="piggytitle">
         <img
