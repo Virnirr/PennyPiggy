@@ -20,20 +20,18 @@ export class HistoryCard extends HTMLElement {
   `;
 
   static styles = css`
-    .history-card {
-      background-color: var(--color-background-gray);
-      padding: var(--size-padding);
-      border-radius: var(--size-border);
-      margin-right: var(--size-padding);
-      display: flex;
-      flex-direction: column;
-    }
+  .history-card {
+    background-color: var(--color-background-gray);
+    padding: var(--size-padding);
+    border-radius: var(--size-border);
+    margin-right: var(--size-padding);
+  }
 
-    .history-card-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: var(--size-padding-small);
-    }
+  .history-card-item {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+  }
   `;
 
   static get observedAttributes() {
@@ -42,7 +40,9 @@ export class HistoryCard extends HTMLElement {
 
   constructor() {
     super();
-    shadow(this).template(HistoryCard.template).styles(HistoryCard.styles);
+    shadow(this)
+      .template(HistoryCard.template)
+      .styles(HistoryCard.styles);
   }
 
   connectedCallback() {
@@ -63,5 +63,3 @@ export class HistoryCard extends HTMLElement {
     this.shadowRoot.querySelector('.spent').textContent = spent;
   }
 }
-
-customElements.define('history-card', HistoryCard);

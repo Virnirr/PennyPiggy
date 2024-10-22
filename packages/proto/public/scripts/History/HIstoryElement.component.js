@@ -10,10 +10,10 @@ export class HistoryElement extends HTMLElement {
   `;
 
   static styles = css`
-    :host,
     .history {
       display: flex;
       flex-direction: column;
+      justify-content: space-evenly;
       gap: var(--size-padding);
       width: 100%;
     }
@@ -24,5 +24,3 @@ export class HistoryElement extends HTMLElement {
     shadow(this).template(HistoryElement.template).styles(HistoryElement.styles);
   }
 }
-
-customElements.define('history-element', HistoryElement);

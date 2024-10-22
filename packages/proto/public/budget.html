@@ -22,55 +22,18 @@
   <script type="module">
     import { define } from "@calpoly/mustang";
     import { NavigationBarElement } from "/scripts/navbar.component.js";
-  
+    import { TableElement } from "/scripts/Table/TableElement.component.js";
+
     define({
-      "nav-bar": NavigationBarElement
+      "nav-bar": NavigationBarElement,
+      "table-element": TableElement,
     });
   </script>
 </head>
 <body>
   <nav-bar></nav-bar>
   <main>
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>
-              Budget Category
-            </th>
-            <th>
-              Budgeted
-            </th>
-            <th>
-              Spent (per month)
-            </th>
-            <th>
-              Left (per month)
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Grocery</td>
-            <td>$150</td>
-            <td>$0</td>
-            <td>$150</td>
-          </tr>
-          <tr>
-            <td>Entertainment</td>
-            <td>$150</td>
-            <td>$0</td>
-            <td>$150</td>
-          </tr>
-          <tr>
-            <td>Grocery</td>
-            <td>$150</td>
-            <td>$0</td>
-            <td>$150</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table-element type="budget"></table-element>
     <button type="button">Add new budget</button>
   </main>
   <footer>
