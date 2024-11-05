@@ -34,16 +34,56 @@
       "table-element": TableElement,
     });
   </script>
+  <script src="scripts/events.js" defer></script>
 </head>
 <body>
+  
   <nav-bar></nav-bar>
   <main class="transactions">
     <section class="transactions-graph">Some Graph</section>
     <section class="transactions-graph">Some Graph</section>
     <section class="transactions-graph">Some Graph</section>
-    <section class="transactions-history">
-      <table-element type="withdrawal"></table-element>
-    </section>
+    <table-element class="transactions-history">
+      <!-- Header Row -->
+      <div slot="header" class="table-row header">
+        <div class="cell">Header 1</div>
+        <div class="cell">Header 2</div>
+        <div class="cell">Header 3</div>
+        <div class="cell">Header 3</div>
+        <div class="cell">Header 3</div>
+      </div>
+    
+      <!-- Data Rows -->
+      <div slot="data" class="table-row">
+        <div class="cell">Row 1, Cell 1</div>
+        <div class="cell">Row 1, Cell 2</div>
+        <div class="cell">Row 1, Cell 3</div>
+        <div class="cell">Header 3</div>
+        <div class="cell">Header 3</div>
+      </div>
+      <div slot="data" class="table-row">
+        <div class="cell">Row 2, Cell 1</div>
+        <div class="cell">Row 2, Cell 2</div>
+        <div class="cell">Row 2, Cell 3</div>
+        <div class="cell">Header 3</div>
+        <div class="cell">Header 3</div>
+      </div>
+      <div slot="data" class="table-row">
+        <div class="cell">Row 2, Cell 1</div>
+        <div class="cell">Row 2, Cell 2</div>
+        <div class="cell">Row 2, Cell 3</div>
+        <div class="cell">Header 3</div>
+        <div class="cell">Header 3</div>
+      </div>
+      <div slot="data" class="table-row">
+        <div class="cell">Row 2, Cell 1</div>
+        <div class="cell">Row 2, Cell 2</div>
+        <div class="cell">Row 2, Cell 3</div>
+        <div class="cell">Header 3</div>
+        <div class="cell">Header 3</div>
+      </div>
+    </table-element>
+    
     <section>
 
       <history-element>

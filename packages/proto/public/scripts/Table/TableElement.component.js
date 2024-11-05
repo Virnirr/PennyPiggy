@@ -3,43 +3,51 @@ import { css, html, shadow } from "@calpoly/mustang";
 export class TableElement extends HTMLElement {
   static template = html`
   <template>
-    <table>
-      <thead>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
+    <div class="table-grid">
+      <!-- Header Row -->
+      <slot name="header"></slot>
+    
+      <!-- Data Rows -->
+      <slot name="data"></slot>
+      <!-- Add more rows as needed -->
+    </div>
   </template>
   `;
 
   static styles = css`
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: var(--table-margin);
-      font-size: var(--font-size-sm);
-    }
+.table-grid {
+  display: grid;
+  width: 100%;
+  margin: var(--table-margin);
+  font-size: var(--font-size-sm);
 
-    th,
-    td {
-      padding: var(--table-cell-padding);
-      text-align: left;
-      border-bottom: var(--table-border-width) solid var(--color-table-border);
-    }
+  grid-auto-rows: max-content; /* Rows will size based on content */
+}
 
-    th {
-      background-color: var(--color-table-header);
-      color: var(--color-text);
-      font-weight: bold;
-    }
+.table-row {
+  display: contents; /* Allows cells to participate in the grid */
+}
 
-    tr:nth-child(even) {
-      background-color: var(--color-table-row-even);
-    }
+.cell {
+  padding: var(--table-cell-padding);
+  text-align: left;
+  border-bottom: var(--table-border-width) solid var(--color-table-border);
+  width: 150px;
+}
 
-    tr:hover {
-      background-color: var(--color-table-row-hover);
-    }
+.header .cell {
+  background-color: var(--color-table-header);
+  color: var(--color-text);
+  font-weight: bold;
+}
+
+.table-row:nth-of-type(even) .cell {
+  background-color: var(--color-table-row-even);
+}
+
+.table-row:hover .cell {
+  background-color: var(--color-table-row-hover);
+}
   `;
 
   constructor() {
@@ -50,12 +58,19 @@ export class TableElement extends HTMLElement {
   }
 
   connectedCallback() {
-    this._render();
+    const tableGrid = this.shadowRoot.querySelector('.table-grid');
+    const headerCells = document.querySelectorAll('.table-row.header .cell').length;
+
+    // console.log(this.shadowRoot.querySelectorAll('.table-row.header .cell'))
+    if (tableGrid && headerCells) {
+      tableGrid.style.gridTemplateColumns = `repeat(${headerCells}, 1fr)`;
+    }
   }
 
-  attributeChangedCallback() {
-    this._render();
-  }
+
+  // attributeChangedCallback() {
+  //   this._render();
+  // }
 
   getData(type) {
 
@@ -126,42 +141,5 @@ export class TableElement extends HTMLElement {
           ]
         }
     }
-  }
-
-  _render() {
-
-    const type = this.getAttribute('type');
-    
-    const { headers, data } = this.getData(type);
-
-    const headerRow = document.createElement('tr');
-
-    const headerData = headers.map(header => {
-      const cell = document.createElement('th');
-      cell.textContent = header;
-      return cell;
-    })
-
-    headerData.forEach(cell => {
-      headerRow.appendChild(cell);
-    });
-    
-    const bodyData = data.map(data => {
-      const row = document.createElement('tr');
-      data.forEach(data => {
-        const cell = document.createElement('td');
-        cell.textContent = data;
-        row.appendChild(cell);
-      });
-      return row;
-    });
-
-    // append headerData into header
-    this.shadowRoot.querySelector('thead').appendChild(headerRow);
-
-    // append bodyData into body
-    bodyData.forEach(row => {
-      this.shadowRoot.querySelector('tbody').appendChild(row);
-    })
   }
 }

@@ -31,6 +31,15 @@ export class NavigationBarElement extends HTMLElement {
           <li class="navbar-item"><a href="login.html">Login</a></li>
           <li class="navbar-item"><a href="signup.html">SignUp</a></li>
           <li class="navbar-item"><a href="asset_account.html">Asset Account</a></li>
+        <label
+          onchange="event.stopPropagation();
+          toggleDarkMode(event.target, event.target.checked);
+          console.log('something happened here');
+          "
+          >
+          <input type="checkbox" />
+          Dark mode
+          </label>
         </ul>
       </nav>
     </template>
