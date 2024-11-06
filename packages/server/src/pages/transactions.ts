@@ -1,5 +1,5 @@
 import { css, html, HtmlString } from "@calpoly/mustang/server";
-import { ITransactions } from "models/transactions";
+import { ITransactions } from "models/ITransactions";
 import renderPage from "./renderPage";
 
 export class TransactionPage {
@@ -62,8 +62,65 @@ export class TransactionPage {
     `
   }
 
+  renderHistory() {
+
+    interface IHistoryGroup extends Object{
+      date: string,
+      transactions: number,
+      spent: number
+    }
+
+    // Group by dates and calculate total spent. Load them into an object to be parsed and create history cards
+    const historyGroupByDate = this.data.reduce((acc: Record<string, IHistoryGroup>, transaction: ITransactions) => {
+
+      // Extract date and amount from transaction
+      const { date, amount } = transaction;
+      
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      const key = `${month}/${year}`;
+
+      if (!acc[key]) {
+        acc[key] = {
+          date: key,
+          transactions: 1,
+          spent: amount
+        }
+      } else {
+        acc[key] = {
+          ...acc[key],
+          transactions: acc[key].transactions + 1,
+          spent: acc[key].spent + amount
+        }
+      }
+      return acc;
+    }, {});
+
+    const sortedHistoryKey = Object.keys(historyGroupByDate).sort((a, b) => {
+      const [aMonth, aYear] = a.split('/').map(Number);
+      const [bMonth, bYear] = b.split('/').map(Number);
+      const aDate = new Date(aYear, aMonth - 1).getTime(); // month is 0-indexed
+      const bDate = new Date(bYear, bMonth - 1).getTime();
+      return bDate - aDate;
+    })
+
+    const historyElements = sortedHistoryKey.map(key => {
+      const { date, transactions, spent } = historyGroupByDate[key];
+      return html`
+        <history-card date="${date}" transactions="${transactions}" spent="$${spent.toFixed(2)}"></history-card>
+      `
+    });
+
+    return html`
+      <history-element>
+        ${historyElements}
+      </history-element>
+    `;
+  }
+
   renderBody() {
     const transactions = this.renderTransactionHistory(this.data);
+    const historyElement = this.renderHistory();
 
 
     return html`
@@ -78,15 +135,7 @@ export class TransactionPage {
           
           <section>
 
-            <history-element>
-              <history-card date="July 24, 2023" transactions="5" spent="$120"></history-card>
-              <history-card date="July 25, 2023" transactions="3" spent="$80"></history-card>
-              <history-card date="July 26, 2023" transactions="4" spent="$100"></history-card>
-              <history-card date="July 27, 2023" transactions="2" spent="$50"></history-card>
-              <history-card date="July 28, 2023" transactions="6" spent="$150"></history-card>
-              <history-card date="July 29, 2023" transactions="1" spent="$30"></history-card>
-              <history-card date="July 30, 2023" transactions="7" spent="$200"></history-card>
-            </history-element>
+          ${historyElement}
             
           </section>
         </main>

@@ -1,5 +1,5 @@
-import { Schema, model } from "mongoose";
-import { ITransactions } from "../models/transactions";
+  import { Schema, model } from "mongoose";
+import { ITransactions } from "../models/ITransactions";
 
 
 

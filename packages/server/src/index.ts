@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const staticDir = process.env.STATIC || "public";
 
-import { ITransactions } from "models/transactions";
+import { ITransactions } from "models/ITransactions";
 import { TransactionsData } from "./pages/transactionData";
 import { TransactionPage } from "./pages/transactions";
 
