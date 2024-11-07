@@ -13,15 +13,19 @@ import { connect } from "./services/mongo";
 
 import transactionsSvc from "./services/transactions-svc";
 import usersSvc from "./services/users-svc";
-import assetaccountSvc from "services/assetaccount-svc";
-import expenseaccountSvc from "services/expenseaccount-svc";
-import categorySvc from "services/category-svc";
+import assetaccountSvc from "./services/assetaccount-svc";
+import expenseaccountSvc from "./services/expenseaccount-svc";
+import categorySvc from "./services/category-svc";
 
 import { Schema } from "mongoose";
+import transactions from "./routes/transactions";
 
 connect("PennyPiggy"); // use your own db name here
 
 app.use(express.static(staticDir));
+app.use(express.json());
+
+app.use("/api/transactions", transactions);
 
 app.get("/hello", (req: Request, res: Response) => {
     res.send("Hello, World");
@@ -45,11 +49,6 @@ app.get(
       .catch((error) => {
         res.status(404).send(error);
       });
-    
-    // const data: ITransactions[] = TransactionsData;
-    // const page = new TransactionPage(data);
-
-    // res.set("Content-Type", "text/html").send(page.render());
   }
 );
 

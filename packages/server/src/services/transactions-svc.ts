@@ -66,10 +66,21 @@ function update(
   });
 }
 
+function remove(transactionId: string): Promise<void> {
+  return TransactionsModel.findByIdAndDelete(transactionId)
+    .then((deleted) => {
+      if (!deleted) {
+        throw `${transactionId} Not Found`;
+      }
+    }
+  );
+}
+
 export default {
   index,
   getTransacitonWithUserId,
   create,
   update,
+  remove,
   Schema: TransactionsSchema,
 }
