@@ -1,7 +1,9 @@
 import { css, html, HtmlString } from "@calpoly/mustang/server";
 import { ITransactions } from "models/ITransactions";
 import renderPage from "./renderPage";
-
+import { IAssetAccount } from "models";
+import { IExpenseAccount } from "models";
+import { ICategory } from "models";
 export class TransactionPage {
   data: ITransactions[];
   
@@ -17,23 +19,19 @@ export class TransactionPage {
 
   renderTransactionHistory(transactions: ITransactions[]) {
 
-    const headers = Object.keys(transactions[0]).map(header => {
-      if (["description", "amount", "date", "sourceAccount", "destinationAccount", "category"].includes(header)) {
-        return html`
-          <div class="cell">${header.substring(0, 1).toUpperCase() + header.substring(1)}</div>
-        `;
-      }
-      else {
-        return html``;
-      }
-    });
+
+    const headers = ["Description", "Amount", "Date", "SourceAccount", "DestinationAccount", "Category"].map(header => {
+      return html`
+        <div class="cell">${header}</div>
+      `
+    })
 
     const rowData = transactions.map(transaction => {
       const { description, amount, date, sourceAccount, destinationAccount, category } = transaction;
       
-      const { accountName: sourceAccountName } = sourceAccount;
-      const { accountName: destinationAccountName } = destinationAccount;
-      const { description: categoryName } = category;
+      const { accountName : sourceAccountName } = sourceAccount as IAssetAccount;
+      const { accountName: destinationAccountName } = destinationAccount as IExpenseAccount;
+      const { description: categoryName } = category as ICategory;
 
       const strAmount = "$" + amount.toFixed(2);
 
@@ -69,6 +67,8 @@ export class TransactionPage {
       transactions: number,
       spent: number
     }
+
+    console.log(this.data)
 
     // Group by dates and calculate total spent. Load them into an object to be parsed and create history cards
     const historyGroupByDate = this.data.reduce((acc: Record<string, IHistoryGroup>, transaction: ITransactions) => {
@@ -142,7 +142,6 @@ export class TransactionPage {
         <footer>
           <p>&copy; 2024 PennyPiggy</p>
         </footer>
-        <script src="scripts/events.js" defer></script>
       </body>
     `
   }

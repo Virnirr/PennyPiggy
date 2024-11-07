@@ -11,8 +11,15 @@ import { TransactionPage } from "./pages/transactions";
 
 import { connect } from "./services/mongo";
 
-connect("pennypigger"); // use your own db name here
+import transactionsSvc from "./services/transactions-svc";
+import usersSvc from "./services/users-svc";
+import assetaccountSvc from "services/assetaccount-svc";
+import expenseaccountSvc from "services/expenseaccount-svc";
+import categorySvc from "services/category-svc";
 
+import { Schema } from "mongoose";
+
+connect("PennyPiggy"); // use your own db name here
 
 app.use(express.static(staticDir));
 
@@ -21,13 +28,28 @@ app.get("/hello", (req: Request, res: Response) => {
 });
 
 app.get(
-  "/transactions",
+  "/transactions/:userEmail",
   (req: Request, res: Response) => {
-    const { destId } = req.params;
-    const data: ITransactions[] = TransactionsData;
-    const page = new TransactionPage(data);
+    const { userEmail } = req.params;
 
-    res.set("Content-Type", "text/html").send(page.render());
+    usersSvc
+      .getByEmail(userEmail)
+      .then((user) => {
+        const userId = user._id as Schema.Types.ObjectId;
+        return transactionsSvc.getTransacitonWithUserId(userId);
+      })
+      .then((transactions) => {
+        const page = new TransactionPage(transactions);
+        res.set("Content-Type", "text/html").send(page.render());
+      })
+      .catch((error) => {
+        res.status(404).send(error);
+      });
+    
+    // const data: ITransactions[] = TransactionsData;
+    // const page = new TransactionPage(data);
+
+    // res.set("Content-Type", "text/html").send(page.render());
   }
 );
 

@@ -10,13 +10,11 @@ type Currency = number;
 // Sample Users
 const users: IUser[] = [
   {
-    userid: 'user1',
     username: 'JohnDoe',
     email: 'johndoe@example.com',
     avatar: 'john_avatar.png',
   },
   {
-    userid: 'user2',
     username: 'JaneSmith',
     email: 'janesmith@example.com',
   },
@@ -63,15 +61,12 @@ const expenseAccounts: IExpenseAccount[] = [
 // Sample Categories
 const categories: ICategory[] = [
   {
-    categoryId: 1,
     description: 'Salary',
   },
   {
-    categoryId: 2,
     description: 'Groceries',
   },
   {
-    categoryId: 3,
     description: 'Utilities',
   },
 ];
@@ -79,8 +74,7 @@ const categories: ICategory[] = [
 // Sample Transactions
 export const TransactionsData: ITransactions[] = [
   {
-    transactionId: 1,
-    userId: users[0],
+    user: users[0],
     transactionType: 'deposit',
     description: 'Monthly Salary',
     amount: 3000.0,
@@ -92,8 +86,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'October salary deposit',
   },
   {
-    transactionId: 2,
-    userId: users[0],
+    user: users[0],
     transactionType: 'withdrawal',
     description: 'Grocery Shopping',
     amount: -150.0,
@@ -105,8 +98,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Bought groceries from supermarket',
   },
   {
-    transactionId: 3,
-    userId: users[1],
+    user: users[1],
     transactionType: 'transfer',
     description: 'Business Investment',
     amount: -5000.0,
@@ -118,8 +110,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Invested in new project',
   },
   {
-    transactionId: 4,
-    userId: users[1],
+    user: users[1],
     transactionType: 'deposit',
     description: 'Freelance Payment',
     amount: 1200.0,
@@ -131,8 +122,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Payment from client',
   },
     {
-    transactionId: 4,
-    userId: users[1],
+    user: users[1],
     transactionType: 'deposit',
     description: 'Freelance Payment',
     amount: 1200.0,
@@ -144,8 +134,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Payment from client',
   },
   {
-    transactionId: 5,
-    userId: users[0],
+    user: users[0],
     transactionType: 'withdrawal',
     description: 'Utility Bill Payment',
     amount: -200.0,
@@ -157,8 +146,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Paid electricity bill',
   },
   {
-    transactionId: 6,
-    userId: users[1],
+    user: users[1],
     transactionType: 'deposit',
     description: 'Project Bonus',
     amount: 2500.0,
@@ -170,8 +158,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Received bonus for project completion',
   },
   {
-    transactionId: 7,
-    userId: users[0],
+    user: users[0],
     transactionType: 'withdrawal',
     description: 'Grocery Shopping',
     amount: -300.0,
@@ -183,8 +170,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Weekly grocery shopping',
   },
   {
-    transactionId: 8,
-    userId: users[1],
+    user: users[1],
     transactionType: 'transfer',
     description: 'Loan Repayment',
     amount: -1000.0,
@@ -196,8 +182,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Monthly loan repayment',
   },
   {
-    transactionId: 9,
-    userId: users[0],
+    user: users[0],
     transactionType: 'deposit',
     description: 'Freelance Work',
     amount: 1800.0,
@@ -209,8 +194,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Payment for freelance project',
   },
   {
-    transactionId: 10,
-    userId: users[1],
+    user: users[1],
     transactionType: 'withdrawal',
     description: 'Office Supplies',
     amount: -450.0,
@@ -222,8 +206,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Purchased office supplies',
   },
   {
-    transactionId: 11,
-    userId: users[0],
+    user: users[0],
     transactionType: 'deposit',
     description: 'Stock Dividends',
     amount: 600.0,
@@ -235,8 +218,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Received stock dividends',
   },
   {
-    transactionId: 12,
-    userId: users[1],
+    user: users[1],
     transactionType: 'withdrawal',
     description: 'Restaurant Bill',
     amount: -120.0,
@@ -248,8 +230,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Dinner at a restaurant',
   },
   {
-    transactionId: 13,
-    userId: users[0],
+    user: users[0],
     transactionType: 'deposit',
     description: 'Gift',
     amount: 500.0,
@@ -261,8 +242,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Received birthday gift',
   },
   {
-    transactionId: 14,
-    userId: users[1],
+    user: users[1],
     transactionType: 'withdrawal',
     description: 'Car Maintenance',
     amount: -300.0,
@@ -274,8 +254,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Paid for car maintenance',
   },
   {
-    transactionId: 15,
-    userId: users[0],
+    user: users[0],
     transactionType: 'transfer',
     description: 'Savings Transfer',
     amount: -1000.0,
@@ -287,8 +266,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Transferred to savings account',
   },
   {
-    transactionId: 16,
-    userId: users[1],
+    user: users[1],
     transactionType: 'deposit',
     description: 'Investment Return',
     amount: 2000.0,
@@ -300,8 +278,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Return on investment',
   },
   {
-    transactionId: 17,
-    userId: users[0],
+    user: users[0],
     transactionType: 'withdrawal',
     description: 'Medical Expenses',
     amount: -250.0,
@@ -313,8 +290,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Paid for medical checkup',
   },
   {
-    transactionId: 18,
-    userId: users[1],
+    user: users[1],
     transactionType: 'deposit',
     description: 'Freelance Payment',
     amount: 1500.0,
@@ -326,8 +302,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Payment from freelance work',
   },
   {
-    transactionId: 19,
-    userId: users[0],
+    user: users[0],
     transactionType: 'withdrawal',
     description: 'Online Shopping',
     amount: -80.0,
@@ -339,8 +314,7 @@ export const TransactionsData: ITransactions[] = [
     notes: 'Bought items online',
   },
   {
-    transactionId: 20,
-    userId: users[1],
+    user: users[1],
     transactionType: 'transfer',
     description: 'Rent Payment',
     amount: -1200.0,
