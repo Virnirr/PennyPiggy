@@ -8,7 +8,7 @@ export class NavigationBarElement extends HTMLElement {
           <li class="navbar-item">
             <a href="/" style="vertical-align: middle;">
               <img
-                src="./static/pennypiggylogo.svg"
+                src="/static/pennypiggylogo.svg"
                 alt="pennypiggylogo"
                 style="width: 50px; border-radius: 50%"
               />
@@ -42,6 +42,7 @@ export class NavigationBarElement extends HTMLElement {
           </label>
         </ul>
       </nav>
+      <scripts src="/static/scripts/events.js"></scripts>
     </template>
   `;
 

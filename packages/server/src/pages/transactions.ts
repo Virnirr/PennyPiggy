@@ -14,6 +14,12 @@ export class TransactionPage {
   render() {
     return renderPage({
       body: this.renderBody(),
+      scripts: [
+        `
+        import { toggleDarkMode } from '/scripts/events.js';
+        window.toggleDarkMode = toggleDarkMode;
+        `
+      ]
     });
   }
 
@@ -48,7 +54,7 @@ export class TransactionPage {
     });
 
     return html`
-      <table-element class="transactions-history">
+      <table-element class="transactions-history" src="/api/transactions/>
         <!-- Header Row -->
         <div slot="header" class="table-row header">
           ${headers}
@@ -123,6 +129,8 @@ export class TransactionPage {
     const historyElement = this.renderHistory();
 
 
+    const api = "/api/transactions/john.doe@example.com";
+
     return html`
       <body>
         <nav-bar></nav-bar>
@@ -131,7 +139,7 @@ export class TransactionPage {
           <section class="transactions-graph">Some Graph</section>
           <section class="transactions-graph">Some Graph</section>
 
-          ${transactions}
+          <table-element class="transactions-history" src="${api}"></table-element>
           
           <section>
 
