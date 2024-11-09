@@ -1,4 +1,4 @@
-import { css, html, shadow } from "@calpoly/mustang";
+import { css, html, shadow, Events } from "@calpoly/mustang";
 
 export class NavigationBarElement extends HTMLElement {
   static template = html`
@@ -16,7 +16,7 @@ export class NavigationBarElement extends HTMLElement {
             </a>
           </li>
           <li class="navbar-item"><a href="dashboard.html">Dashboard</a></li>
-      
+
           <!-- Dropdown for Transactions -->
           <li class="navbar-item dropdown">
             <a href="transactions.html" class="dropbtn">Transactions</a>
@@ -25,36 +25,30 @@ export class NavigationBarElement extends HTMLElement {
               <a href="deposit.html">Deposit</a>
             </div>
           </li>
-      
+
           <li class="navbar-item"><a href="budget.html">Budget</a></li>
           <li class="navbar-item"><a href="bills.html">Bills</a></li>
           <li class="navbar-item"><a href="login.html">Login</a></li>
           <li class="navbar-item"><a href="signup.html">SignUp</a></li>
-          <li class="navbar-item"><a href="asset_account.html">Asset Account</a></li>
-        <label
-          onchange="event.stopPropagation();
-          toggleDarkMode(event.target, event.target.checked);
-          console.log('something happened here');
-          "
-          >
-          <input type="checkbox" />
-          Dark mode
+          <li class="navbar-item">
+            <a href="asset_account.html">Asset Account</a>
+          </li>
+          <label class="dark-mode-switch">
+            <input type="checkbox" autocomplete="off" />
+            Dark mode
           </label>
         </ul>
       </nav>
-      <scripts src="/static/scripts/events.js"></scripts>
     </template>
   `;
 
-
   static styles = css`
-
-  .navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em;
-  }
+    .navbar-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1em;
+    }
 
     .navbar-container .dropdown {
       position: relative;
@@ -66,7 +60,7 @@ export class NavigationBarElement extends HTMLElement {
       position: absolute;
       background-color: var(--color-background-page);
       min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       z-index: 1;
     }
 
@@ -108,5 +102,23 @@ export class NavigationBarElement extends HTMLElement {
     shadow(this)
       .template(NavigationBarElement.template)
       .styles(NavigationBarElement.styles);
+
+    const dm = this.shadowRoot.querySelector(".dark-mode-switch");
+
+    dm.addEventListener("click", (event) =>
+      Events.relay(event, "dark-mode", {
+        checked: event.target.checked,
+      })
+    );
+  }
+
+  static initializeOnce() {
+    function toggleDarkMode(page, checked) {
+      page.classList.toggle("dark-mode", checked);
+    }
+
+    document.body.addEventListener("dark-mode", (event) =>
+      toggleDarkMode(event.currentTarget, event.detail.checked)
+    );
   }
 }

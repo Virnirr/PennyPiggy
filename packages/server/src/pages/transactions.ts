@@ -14,12 +14,6 @@ export class TransactionPage {
   render() {
     return renderPage({
       body: this.renderBody(),
-      scripts: [
-        `
-        import { toggleDarkMode } from '/scripts/events.js';
-        window.toggleDarkMode = toggleDarkMode;
-        `
-      ]
     });
   }
 

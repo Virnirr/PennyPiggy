@@ -24,8 +24,7 @@ const defaults = {
       "history-card": HistoryCard,
       "table-element": TableElement,
     });
-
-    window.toggleDarkMode = toggleDarkMode;
+    NavigationBarElement.initializeOnce();
     `
   ],
   googleFontURL:
