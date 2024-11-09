@@ -24,6 +24,8 @@ const defaults = {
       "history-card": HistoryCard,
       "table-element": TableElement,
     });
+
+    window.toggleDarkMode = toggleDarkMode;
     `
   ],
   googleFontURL:
