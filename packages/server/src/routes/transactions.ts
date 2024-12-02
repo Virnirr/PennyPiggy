@@ -2,6 +2,8 @@ import express, { Request, Response } from "express";
 import { ITransactions } from "models/ITransactions";
 
 import usersSvc from "../services/users-svc";
+import credentialSvc from "services/credential-svc";
+
 import transactionsSvc from "../services/transactions-svc";
 
 import { Schema } from "mongoose";

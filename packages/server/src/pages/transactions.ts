@@ -4,11 +4,14 @@ import renderPage from "./renderPage";
 import { IAssetAccount } from "models";
 import { IExpenseAccount } from "models";
 import { ICategory } from "models";
+
 export class TransactionPage {
   data: ITransactions[];
+  emailData: string;
   
-  constructor(data: ITransactions[]) {
+  constructor(data: ITransactions[], emailData: string) {
     this.data = data;
+    this.emailData = emailData;
   }
 
   render() {
@@ -68,8 +71,6 @@ export class TransactionPage {
       spent: number
     }
 
-    console.log(this.data)
-
     // Group by dates and calculate total spent. Load them into an object to be parsed and create history cards
     const historyGroupByDate = this.data.reduce((acc: Record<string, IHistoryGroup>, transaction: ITransactions) => {
 
@@ -122,28 +123,31 @@ export class TransactionPage {
     const transactions = this.renderTransactionHistory(this.data);
     const historyElement = this.renderHistory();
 
-
-    const api = "/api/transactions/john.doe@example.com";
+    const baseApi = "/api/transactions";
+    const api = `${baseApi}/${this.emailData}`;
 
     return html`
       <body>
-        <nav-bar></nav-bar>
-        <main class="transactions">
-          <section class="transactions-graph">Some Graph</section>
-          <section class="transactions-graph">Some Graph</section>
-          <section class="transactions-graph">Some Graph</section>
-
-          <table-element class="transactions-history" src="${api}"></table-element>
+        <mu-auth provides="pennypiggy:auth">
+          <nav-bar></nav-bar>
           
-          <section>
+          <main class="transactions">
+            <section class="transactions-graph">Some Graph</section>
+            <section class="transactions-graph">Some Graph</section>
+            <section class="transactions-graph">Some Graph</section>
 
-          ${historyElement}
+            <table-element class="transactions-history" src="${api}"></table-element>
             
-          </section>
-        </main>
-        <footer>
-          <p>&copy; 2024 PennyPiggy</p>
-        </footer>
+            <section>
+
+            ${historyElement}
+              
+            </section>
+          </main>
+          <footer>
+            <p>&copy; 2024 PennyPiggy</p>
+          </footer>
+        </mu-auth>
       </body>
     `
   }

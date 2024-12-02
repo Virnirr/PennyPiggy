@@ -1,12 +1,14 @@
-import { Model, Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 import { IUser } from "models/IUsers";
-import { error } from "console";
 
 const UserSchema = new Schema<IUser>(
   {
     username: { type: String, required: true },
     email: { type: String, required: true, unique: true},
-    avatar: { type: String }
+    avatar: { type: String },
+    goal: { type: String },
+    nickname: { type: String },
+    color: { type: String }
   }
 );
 
@@ -17,7 +19,7 @@ function index(): Promise<IUser[]> {
 }
 
 function getByEmail(email: string): Promise<IUser> {
-  return UserModel.findOne({ email })
+  return UserModel.findOne({ email })    
     .then((user: unknown) => user as IUser)
     .catch((error: Error) => {
       throw `${email} Not Found`;
@@ -29,9 +31,9 @@ function create(user: IUser): Promise<IUser> {
   return newUser.save();
 }
 
-function update(userid: string, user: IUser): Promise<IUser> {
+function update(email: string, user: IUser): Promise<IUser> {
   return new Promise((resolve, reject) => {
-    UserModel.findByIdAndUpdate(userid, user, { new: true })
+    UserModel.findOneAndUpdate({ email }, user, { new: true })
       .then((user) => {
         if (user) {
           resolve(user);
@@ -42,9 +44,18 @@ function update(userid: string, user: IUser): Promise<IUser> {
   })
 }
 
+function remove(email: String): Promise<void> {
+  return UserModel
+    .findOneAndDelete({ email })
+    .then((deleted) => {
+      if (!deleted) throw `${email} not deleted`;
+    });
+}
+
 export default {
   index,
   getByEmail,
   create,
-  update
+  update,
+  remove
 }

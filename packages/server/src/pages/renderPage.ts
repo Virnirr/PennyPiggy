@@ -12,17 +12,20 @@ const defaults = {
   ],
   styles: [],
   scripts: [
-    `import { define } from "@calpoly/mustang";
+    `import { define, Dropdown } from "@calpoly/mustang";
     import { NavigationBarElement } from "/scripts/navbar.component.js";
     import { HistoryElement } from "/scripts/History/HistoryElement.component.js";
     import { HistoryCard } from "/scripts/History/HistoryCard.component.js";
     import { TableElement } from "/scripts/Table/TableElement.component.js";
+    import { Auth } from "@calpoly/mustang";
 
     define({
       "nav-bar": NavigationBarElement,
       "history-element": HistoryElement,
       "history-card": HistoryCard,
       "table-element": TableElement,
+      "mu-auth": Auth.Provider,
+      "mu-dropdown": Dropdown.Element
     });
     NavigationBarElement.initializeOnce();
     `

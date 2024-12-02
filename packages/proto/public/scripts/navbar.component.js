@@ -1,10 +1,20 @@
-import { css, html, shadow, Events } from "@calpoly/mustang";
+import {
+  css,
+  html,
+  shadow,
+  Dropdown,
+  Events,
+  Observer,
+  define
+} from "@calpoly/mustang";
 
 export class NavigationBarElement extends HTMLElement {
+  static uses = define({
+    "mu-dropdown": Dropdown.Element,
+  });
   static template = html`
     <template>
-      <nav>
-        <ul class="navbar-container">
+      <nav class="navbarnav-container">
           <li class="navbar-item">
             <a href="/" style="vertical-align: middle;">
               <img
@@ -15,42 +25,42 @@ export class NavigationBarElement extends HTMLElement {
               PennyPiggy
             </a>
           </li>
-          <li class="navbar-item"><a href="dashboard.html">Dashboard</a></li>
-
-          <!-- Dropdown for Transactions -->
-          <li class="navbar-item dropdown">
-            <a href="transactions.html" class="dropbtn">Transactions</a>
-            <div class="dropdown-content">
-              <a href="withdrawal.html">Withdrawal</a>
-              <a href="deposit.html">Deposit</a>
-            </div>
-          </li>
-
-          <li class="navbar-item"><a href="budget.html">Budget</a></li>
-          <li class="navbar-item"><a href="bills.html">Bills</a></li>
-          <li class="navbar-item"><a href="login.html">Login</a></li>
-          <li class="navbar-item"><a href="signup.html">SignUp</a></li>
-          <li class="navbar-item">
-            <a href="asset_account.html">Asset Account</a>
-          </li>
-          <label class="dark-mode-switch">
-            <input type="checkbox" autocomplete="off" />
-            Dark mode
-          </label>
+        <div style="display:flex">
+        <ul class="navbar-container">
         </ul>
+
+          <li>
+          <label class="dark-mode-switch">
+            <input type="checkbox" />
+            Dark Mode
+          </label>
+        </li>
+        </div>
       </nav>
     </template>
   `;
 
   static styles = css`
-    .navbar-container {
+
+    .navbarnav-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1em;
     }
 
-    .navbar-container .dropdown {
+    .navbar-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .navbar-item {
+      margin-right: 2rem;
+    }
+    
+
+    .dropdown {
       position: relative;
       display: inline-block;
     }
@@ -83,8 +93,14 @@ export class NavigationBarElement extends HTMLElement {
       background-color: var(--color-background-gray);
     }
 
-    ul > li {
+    .dark-mode-switch {
+      line-height: 100px;
+    }
+
+
+  li {
       list-style-type: none;
+      margin-right: 10px;
     }
 
     li > a {
@@ -96,6 +112,28 @@ export class NavigationBarElement extends HTMLElement {
       color: var(--color-link-hover);
     }
   `;
+
+  get mode() {
+    return this.getAttribute("mode");
+  }
+
+  set mode(m) {
+    this.setAttribute("mode", m);
+  }
+
+  get userid() {
+    return this._userid.textContent;
+  }
+
+  set userid(id) {
+    if (id === "anonymous") {
+      this._userid.textContent = "";
+      this._signout.disabled = true;
+    } else {
+      this._userid.textContent = id;
+      this._signout.disabled = false;
+    }
+  }
 
   constructor() {
     super();
@@ -120,5 +158,75 @@ export class NavigationBarElement extends HTMLElement {
     document.body.addEventListener("dark-mode", (event) =>
       toggleDarkMode(event.currentTarget, event.detail.checked)
     );
+  }
+
+  _authObserver = new Observer(this, "pennypiggy:auth");
+
+  connectedCallback() {
+    this._authObserver.observe(({ user }) => {
+
+      if (user && user.authenticated) {
+        
+        const navbar = this.shadowRoot.querySelector(".navbar-container");
+        const { username, email } = user.username;
+
+        console.log("this is the email", email)
+
+        const authenticatedNavbar = html`
+          <li class="navbar-item"><a href="dashboard.html">Dashboard</a></li>
+          <!-- Dropdown for Transactions -->
+          <li class="navbar-item dropdown">
+            <a href="transactions.html" class="dropbtn">Transactions</a>
+            <div class="dropdown-content">
+              <a href="/transactions/${email}">Withdrawal</a>
+              <a href="/transactions/${email}">Deposit</a>
+            </div>
+          </li>
+
+          <li class="navbar-item"><a href="/budget.html">Budget</a></li>
+          <li class="navbar-item"><a href="/bills.html">Bills</a></li>
+          <li class="navbar-item">
+            <a href="/asset_account.html">Asset Account</a>
+          </li>
+
+          <mu-dropdown class="navbar-item">
+            <a slot="actuator">
+              Hello,
+              <span id="userid"></span>
+            </a>
+            <menu>
+              <li class="when-signed-in">
+                <a id="signout">Sign Out</a>
+              </li>
+              <li class="when-signed-out">
+                <a href="/login">Sign In</a>
+              </li>
+            </menu>
+          </mu-dropdown>
+        `
+        
+        navbar.replaceChildren(authenticatedNavbar);
+
+        this._userid = this.shadowRoot.querySelector("#userid");
+        this._signout = this.shadowRoot.querySelector("#signout");
+    
+        this._signout.addEventListener("click", (event) =>
+          Events.relay(event, "auth:message", ["auth/signout"])
+        );
+
+        this.userid = username;
+
+      } else {
+        const navbar = this.shadowRoot.querySelector(".navbar-container");
+        
+        const unauthenticatedNavbar = html`
+          <li class="navbar-item"><a href="/login">Login</a></li>
+          <li class="navbar-item"><a href="/signup">SignUp</a></li>
+        `
+        console.log(unauthenticatedNavbar)
+        
+        navbar.replaceChildren(unauthenticatedNavbar);
+      }
+    });
   }
 }

@@ -8,6 +8,7 @@ const staticDir = process.env.STATIC || "public";
 import { ITransactions } from "models/ITransactions";
 import { TransactionsData } from "./pages/transactionData";
 import { TransactionPage } from "./pages/transactions";
+import { PennyProfilePage } from "./pages/pennyProfile";
 
 import { connect } from "./services/mongo";
 
@@ -19,31 +20,43 @@ import categorySvc from "./services/category-svc";
 
 import { Schema } from "mongoose";
 import transactions from "./routes/transactions";
+import users from "./routes/users";
+import auth, { authenticateUser } from "./routes/auth";
+
+import { LoginPage } from "./pages/auth";
 
 connect("PennyPiggy"); // use your own db name here
 
 app.use(express.static(staticDir));
 app.use(express.json());
 
-app.use("/api/transactions", transactions);
+// express routes
+app.use("/api/transactions", authenticateUser, transactions);
+app.use("/api/users", authenticateUser, users);
+app.use("/auth", auth);
 
 app.get("/hello", (req: Request, res: Response) => {
     res.send("Hello, World");
 });
 
+app.get("/login", (req: Request, res: Response) => {
+  const page = new LoginPage();
+  res.set("Content-Type", "text/html").send(page.render());
+});
+
 app.get(
-  "/transactions/:userEmail",
+  "/transactions/:email",
   (req: Request, res: Response) => {
-    const { userEmail } = req.params;
+    const { email } = req.params;
 
     usersSvc
-      .getByEmail(userEmail)
+      .getByEmail(email)
       .then((user) => {
         const userId = user._id as Schema.Types.ObjectId;
         return transactionsSvc.getTransacitonWithUserId(userId);
       })
       .then((transactions) => {
-        const page = new TransactionPage(transactions);
+        const page = new TransactionPage(transactions, email);
         res.set("Content-Type", "text/html").send(page.render());
       })
       .catch((error) => {
@@ -51,6 +64,18 @@ app.get(
       });
   }
 );
+
+app.get("/users/:email", (req: Request, res: Response) => {
+  const { email } = req.params;
+
+  usersSvc
+    .getByEmail(email)
+    .then((userData) => {
+      if (!userData) throw "User not found";
+      const page = new PennyProfilePage(userData, "view");
+      res.set("Content-Type", "text/html").send(page.render()); // send the rendered page
+    })
+});
 
 
 app.listen(port, () => {
