@@ -25,6 +25,8 @@ router.put("/:email", (req: Request, res: Response) => {
   const editedUser = req.body as IUser;
   console.log("editedUser", editedUser);
 
+  console.log("Updating users")
+
   usersSvc
     .update(email, editedUser)
     .then((user) => res.json(user))

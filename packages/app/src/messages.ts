@@ -1,12 +1,12 @@
 import { ITransactions,  IUser } from "server/models";
 
 export type Msg =
-  | ["profile/select", { email: string }]
+  | ["users/select", { email: string }]
   | [
-    "profile/save",
+    "users/save",
     {
       email: string;
-      profile: IUser;
+      users: IUser;
       onSuccess?: () => void;
       onFailure?: (err: Error) => void;
     }

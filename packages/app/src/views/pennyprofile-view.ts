@@ -1,7 +1,9 @@
-import { Auth, define, Form, Observer } from "@calpoly/mustang";
+import { Auth, define, Form, Observer, View } from "@calpoly/mustang";
 import { css, html, LitElement } from "lit";
 import { property, state } from "lit/decorators.js";
 import { IUser } from "server/models";
+import { Model } from "../model";
+import { Msg } from "../messages";
 
 interface MuFormSubmitDetail {
   formData: Record<string, string>; // Example structure, modify as needed
@@ -13,10 +15,10 @@ interface UserCredentails {
   username?: {
     email: string;
     password: string;
-  }
+  };
 }
 
-export class PennyProfileElement extends LitElement {
+export class PennyProfileElement extends View<Model, Msg> {
   static uses = define({
     "mu-form": Form.Element,
   });
@@ -31,11 +33,16 @@ export class PennyProfileElement extends LitElement {
   avatar?: string | undefined;
 
   @state()
-  user?: IUser;
+  get user(): IUser | undefined {
+    return this.model.users;
+  }
 
-
-  get src() {
-    return `/api/users/${this.email}`;
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "email" && oldValue !== newValue && newValue) {
+      console.log("Message is dispatched");
+      this.dispatchMessage(["users/select", { email: newValue }]);
+    }
   }
 
   render() {
@@ -58,26 +65,26 @@ export class PennyProfileElement extends LitElement {
           </dl>
           <button id="edit" @click=${this.handleChangeEdit}>Edit</button>
         </section>
-        <mu-form class="edit">
+        <mu-form class="edit" .init=${{...this.user}}>
           <label>
             <span>Username</span>
-            <input name="username" value=${username} required />
+            <input name="username" required />
           </label>
           <label>
             <span>Email</span>
-            <input name="email" type="email" value=${email} required />
+            <input name="email" type="email" required />
           </label>
           <label>
             <span>Nickname</span>
-            <input name="nickname" value=${nickname} />
+            <input name="nickname" />
           </label>
           <label>
             <span>Goal</span>
-            <input name="goal" value=${goal} />
+            <input name="goal" />
           </label>
           <label>
             <span>Color</span>
-            <input name="color" value=${color} />
+            <input name="color" />
           </label>
 
           <label>
@@ -157,84 +164,31 @@ export class PennyProfileElement extends LitElement {
     `,
   ];
 
-  _authObserver = new Observer<Auth.Model>(this, "pennypiggy:auth");
-  _user = new Auth.User();
+  constructor() {
+    super("pennypiggy:model");
 
-  connectedCallback() {
-    super.connectedCallback();
-    this._authObserver.observe(({ user }) => {
-      if (user) {
-        this._user = user;
-      }
+    this.addEventListener("mu-form:submit", (event: Event) => {
+      const customEvent = event as CustomEvent<MuFormSubmitDetail>;
 
-      this.hydrate(this.src);
-      
-      this.addEventListener("mu-form:submit", (event: Event) => {
-        const customEvent = event as CustomEvent<MuFormSubmitDetail>;
-
-        console.log("users detail", customEvent.detail);
-        this.submit(this.src, customEvent.detail as unknown as IUser);
-      });
+      console.log("users detail", customEvent.detail);
+      this.submit(customEvent.detail as unknown as IUser);
     });
   }
 
-  hydrate(url: string) {
-    fetch(url, {
-      headers: Auth.headers(this._user)
-    })
-      .then((res) => {
-        if (res.status !== 200) throw `Status: ${res.status}`;
-        console.log("This user is authenticated")
-        return res.json();
-      })
-      .then((json) => {
-        this.user = json as IUser;
-        this.mode = "view";
-      })
-      .catch((error) => {
-        console.log(`Failed to render data ${url}:`, error);
-      });
-  }
-
-  submit(url: string, json: IUser) {
-    const method = this.mode === "new" ? "POST" : "PUT";
-
-    if (this.avatar) json.avatar = this.avatar;
-
-    console.log("this is the avatar", this.avatar);
-    console.log("method", method);
-    console.log("Submitting data:", json);
-    console.log("Submitting body:", JSON.stringify(json));
-
-    console.log(url, {
-      method,
-      headers: Auth.headers(this._user),
-      body: JSON.stringify(json),
-    })
-
-    fetch(url, {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-        ...Auth.headers(this._user)
+  submit(userData: IUser) {
+    this.dispatchMessage([
+      "users/save",
+      {
+        email: this.email as string,
+        users: userData,
+        onSuccess: () => {
+          this.mode = "view";
+        },
+        onFailure: (err: Error) => {
+          console.error("Error saving user data:", err);
+        },
       },
-      body: JSON.stringify(json),
-    })
-      .then((res) => {
-        if (res.status !== (this.mode === "new" ? 201 : 200))
-          throw `Status: ${res.status}`;
-        return res.json();
-      })
-      .then((json) => {
-        this.user = json;
-        console.log("what is this", this)
-        console.log("this is user", this.user);
-        console.log({ ...json, avatar: "" });
-        this.mode = "view";
-      })
-      .catch((error) => {
-        console.log(`Failed to submit ${url}:`, error);
-      });
+    ]);
   }
 
   handleAvatarSelected(ev: Event): void {

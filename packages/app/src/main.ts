@@ -60,7 +60,7 @@ define({
   "pennypiggy-auth": AuthViewElement,
   "mu-store": class AppStore extends Store.Provider<Model, Msg> {
     constructor() {
-      super(update, init, "blazing:auth");
+      super(update, init, "pennypiggy:auth");
     }
   },
 });
