@@ -26,15 +26,15 @@ export class NavigationBarElement extends HTMLElement {
             </a>
           </li>
         <div style="display:flex">
-        <ul class="navbar-container">
-        </ul>
+          <ul class="navbar-container">
+          </ul>
 
-          <li>
-          <label class="dark-mode-switch">
-            <input type="checkbox" />
-            Dark Mode
-          </label>
-        </li>
+            <li>
+            <label class="dark-mode-switch">
+              <input type="checkbox" />
+              Dark Mode
+            </label>
+          </li>
         </div>
       </nav>
     </template>
@@ -112,14 +112,6 @@ export class NavigationBarElement extends HTMLElement {
       color: var(--color-link-hover);
     }
   `;
-
-  get mode() {
-    return this.getAttribute("mode");
-  }
-
-  set mode(m) {
-    this.setAttribute("mode", m);
-  }
 
   get userid() {
     return this._userid.textContent;

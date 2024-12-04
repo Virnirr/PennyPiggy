@@ -1,0 +1,320 @@
+body {
+   background-color: var(--color-background-page);
+   color: var(--color-text); /* default text color */
+   margin: 0px;
+   font-family: "Nunito Sans", sans-serif;
+   font-size: var(--font-size-base);
+}
+
+.table-grid {
+  display: grid;
+  width: 100%;
+  margin: var(--table-margin);
+  font-size: var(--font-size-sm);
+  grid-auto-rows: max-content; /* Rows will size based on content */
+}
+
+.table-row {
+  display: contents; /* Allows cells to participate in the grid */
+}
+
+.cell {
+  padding: var(--table-cell-padding);
+  text-align: left;
+  border-bottom: var(--table-border-width) solid var(--color-table-border);
+  /* width: 150px; */
+}
+
+.header .cell {
+  background-color: var(--color-table-header);
+  color: var(--color-text);
+  font-weight: bold;
+}
+
+.table-row:nth-of-type(even) .cell {
+  background-color: var(--color-table-row-even);
+}
+
+.table-row:hover .cell {
+  background-color: var(--color-table-row-hover);
+}
+
+
+body.dark-mode {
+  --color-background-page: #595555;
+  --color-background-header: rgba(91, 87, 86, 0.693);
+  --color-background-gray: #2b2929a8;
+  --color-subtext: #bebfc4d7; 
+  --color-text: #ceced4;
+  --color-links: #ceced4;
+}
+
+header {
+  background-color: var(--color-background-header);
+  color: var(--color-subtext);
+  padding: calc(var(--size-padding) * 2);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Noto Serif", serif;
+}
+
+a {
+  color: var(--color-links);
+}
+
+p {
+  color: var(--color-subtext);
+}
+
+h1 { 
+  color: var(--color-primary-light);
+  font-size: var(--font-size-xl);
+}
+
+h2 {
+  font-size: var(--font-size-lg);
+}
+
+h3 {
+  font-size: var(--font-size-md);
+}
+
+button {
+  background-color: var(--color-button-background);
+  color: var(--color-button-text);
+  width: var(--button-width-size);
+  height: var(--button-height-size);
+  font-size: var(--font-size-sm);
+  border-radius: var(--button-border-radius);
+  border: none;
+
+  &:hover {
+    background-color: var(--color-button-hover);
+    cursor: pointer;
+  }
+}
+
+ul > li {
+  list-style-type: none;
+}
+
+li > a {
+  color: var(--color-links);
+  text-decoration: none;
+}
+
+li > a:hover {
+  color: var(--color-link-hover);
+}
+
+.home > section {
+  padding: var(--background-padding-size);
+}
+
+.bg-light {
+  background-color: var(--color-background-gray);
+}
+
+.bg-pink {
+  background-color: var(--color-background-header);
+}
+
+.section-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--size-padding);
+
+  & > div {
+    flex: 1; /* Makes all children take up equal space */
+    padding: var(--flex-container-padding);
+
+    & > h2 {
+      margin-bottom: var(--flex-container-margin);
+    }
+
+    & > p {
+      line-height: 1.5;
+      font-size: var(--font-size-sm);
+    }
+  }
+}
+
+.piggytitle {
+  text-align: left;
+  margin: auto;
+  width: 80%;
+  font-weight: bold;
+  width: fit-content;
+
+  display: grid;
+  grid-template-columns:
+  [start] repeat(2, 1fr) [end];
+  gap: calc(var(--size-padding) * 2);
+
+  & > img, & > button {
+    justify-self: end
+  }
+
+  & > button {
+    margin-right: calc(var(--size-padding) * 2);
+  }
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+}
+
+footer {
+  text-align: center;
+}
+
+svg.icon {
+  height: var(--size-icon);
+  width: var(--size-icon);
+  fill: currentColor;
+}
+
+.in-and-out-period {
+  background: var(--color-in-out);
+  color: var(--color-text-inverted);
+}
+
+.bills-to-pay {
+  background: var(--color-bills-to-pay);
+  color: var(--color-text-inverted);
+}
+
+.left-to-spend {
+  background: var(--color-left-to-spend);
+  color: var(--color-text-inverted);
+}
+
+.networth {
+  background: var(--color-net-worth);
+  color: var(--color-text-inverted);
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  
+  & > div {
+    border-left: var(--size-border) solid var(--color-text);
+    padding-left: var(--size-padding);
+  
+    & > p {
+      color: var(--color-text-inverted);
+    }
+  }
+}
+
+
+/* Table theme */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--table-margin);
+  font-size: var(--font-size-sm);
+}
+
+th, td {
+  padding: var(--table-cell-padding);
+  text-align: left;
+  border-bottom: var(--table-border-width) solid var(--color-table-border);
+}
+
+th {
+  background-color: var(--color-table-header);
+  color: var(--color-text);
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: var(--color-table-row-even);
+}
+
+tr:hover {
+  background-color: var(--color-table-row-hover);
+}
+
+.history {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: var(--size-padding);
+  width: 100%;
+}
+
+.history-card {
+  background-color: var(--color-background-gray);
+  padding: var(--size-padding);
+  border-radius: var(--size-border);
+  margin-right: var(--size-padding);
+}
+
+.history-card-item {
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.transactions {
+  display: grid;
+  grid-template-columns:
+  [start] repeat(var(--page-grid), 1fr) [end];
+  column-gap: calc(var(--size-padding));
+}
+
+.transactions > .transactions-graph {
+  grid-column: span 2; /* Makes the transactions-graph span 2 columns */
+  padding: 5em;
+}
+
+.transactions-history {
+  grid-column: span 5;
+}
+
+.navbar-container .dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.navbar-container .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--color-background-page);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.navbar-container .dropdown-content a {
+  color: var(--color-text);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.navbar-container .dropdown-content a:hover {
+  background-color: var(--color-background-gray);
+}
+
+.navbar-container .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.navbar-container .dropdown:hover .dropbtn {
+  background-color: var(--color-background-gray);
+}

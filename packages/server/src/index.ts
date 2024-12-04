@@ -1,9 +1,14 @@
 // src/index.ts
 import express, { Request, Response } from "express";
+import fs from "node:fs/promises";
+import path from "path";
+
 
 const app = express();
 const port = process.env.PORT || 3000;
 const staticDir = process.env.STATIC || "public";
+
+console.log("staticDir", staticDir);
 
 import { ITransactions } from "models/ITransactions";
 import { TransactionsData } from "./pages/transactionData";
@@ -35,6 +40,7 @@ app.use("/api/transactions", authenticateUser, transactions);
 app.use("/api/users", authenticateUser, users);
 app.use("/auth", auth);
 
+
 app.get("/hello", (req: Request, res: Response) => {
     res.send("Hello, World");
 });
@@ -42,6 +48,14 @@ app.get("/hello", (req: Request, res: Response) => {
 app.get("/login", (req: Request, res: Response) => {
   const page = new LoginPage();
   res.set("Content-Type", "text/html").send(page.render());
+});
+
+// SPA Routes: /app/...
+app.use("/app", (_: Request, res: Response) => {
+  const indexHtml = path.resolve(staticDir, "index.html");
+  fs.readFile(indexHtml, { encoding: "utf8" }).then((html) =>
+    res.send(html)
+  );
 });
 
 app.get(

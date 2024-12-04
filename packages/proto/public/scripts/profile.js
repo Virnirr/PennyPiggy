@@ -12,8 +12,8 @@ export class PennyProfileElement extends HTMLElement {
 
   static uses = define({
     "mu-form": Form.Element,
-    "input-array": InputArray.Element
   });
+
 
   static template = html`
   <template>
