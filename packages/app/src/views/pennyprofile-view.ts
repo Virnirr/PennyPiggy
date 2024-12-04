@@ -52,7 +52,7 @@ export class PennyProfileElement extends View<Model, Msg> {
           </dl>
           <button id="edit" @click=${this.handleChangeEdit}>Edit</button>
         </section>
-        <mu-form class="edit" .init=${{...this.user}} @mu-form:submit=${this._handleSubmit}>
+        <mu-form class="edit" .init=${{...this.user, avatar: ""}} @mu-form:submit=${this._handleSubmit}>
           <label>
             <span>Username</span>
             <input name="username" required />
@@ -156,11 +156,12 @@ export class PennyProfileElement extends View<Model, Msg> {
   }
 
   _handleSubmit(event: Form.SubmitEvent<IUser>) {
+    
     this.dispatchMessage([
       "users/save",
       {
         email: this.email as string,
-        users: event.detail,
+        users: {...event.detail, avatar: this.avatar},
         onSuccess: () =>
           this.mode = "view",
         onFailure: (error: Error) =>

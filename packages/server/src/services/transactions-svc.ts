@@ -32,7 +32,19 @@ function getTransacitonWithUserId(userId: Schema.Types.ObjectId): Promise<ITrans
   console.log(userId);
   return TransactionsModel
     .find({ user: userId })
-    .populate("user")
+    .populate("sourceAccount")
+    .populate("destinationAccount")
+    .populate("category")
+    .then((doc: unknown) => doc as ITransactions[])
+    .catch((error: Error) => {
+      console.log(error);
+      throw `${userId} Not Found`;
+    });
+}
+
+function getTransacitonWithUserIdAndType(userId: Schema.Types.ObjectId, transactionType: string): Promise<ITransactions[]> {
+  return TransactionsModel
+    .find({ user: userId, transactionType: transactionType })
     .populate("sourceAccount")
     .populate("destinationAccount")
     .populate("category")
@@ -79,6 +91,7 @@ function remove(transactionId: string): Promise<void> {
 export default {
   index,
   getTransacitonWithUserId,
+  getTransacitonWithUserIdAndType,
   create,
   update,
   remove,

@@ -18,14 +18,8 @@ async function main() {
     email: "john.doe@example.com",
     password: "123456",
   });
-  const user3 = await credentialSvc.create({
-    username: "jane_smith",
-    email: "jane.smith@example.com",
-    password: "123456",
-  });
 
   const user2Profile = await usersSvc.getByEmail(user2.email);
-  const user3Profile = await usersSvc.getByEmail(user3.email);
 
   // Create additional asset accounts
   const sourceAccount2 = await assetaccountSvc.create({
@@ -88,7 +82,7 @@ async function main() {
 
   // Create additional transactions for user3
   await transactionsSvc.create({
-    user: user3Profile._id as Schema.Types.ObjectId,
+    user: user2Profile._id as Schema.Types.ObjectId,
     description: "Flight to Conference",
     amount: 500,
     date: new Date(),

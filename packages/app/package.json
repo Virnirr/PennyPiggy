@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "@calpoly/mustang": "^1.0.15",
+    "chart.js": "^4.4.7",
     "lit": "^3.2.1",
     "server": "^1.0.0"
   }

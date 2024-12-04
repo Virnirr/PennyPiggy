@@ -36,7 +36,7 @@ app.use(express.static(staticDir));
 app.use(express.json());
 
 // express routes
-app.use("/api/transactions", authenticateUser, transactions);
+app.use("/api/transactions", transactions);
 app.use("/api/users", authenticateUser, users);
 app.use("/auth", auth);
 

@@ -10,6 +10,7 @@ import { PennyProfileElement } from "./views/pennyprofile-view";
 import { HomePageElement } from "./views/home-view";
 import { AuthViewElement } from "./views/auth-view";
 import { TransactionsViewElement } from "./views/transaction-view";
+import { DashboardViewElement } from "./views/dashboard-view";
 
 const routes = [
   {
@@ -39,6 +40,11 @@ const routes = [
     view: (params: Switch.Params) =>
       html` <transactions-view email=${params.id}></transactions-view> `,
   },
+  {
+    path: "/app/dashboard/:id",
+    view: (params: Switch.Params) =>
+      html` <dashboard-view email=${params.id}></dashboard-view> `,
+  }
 ];
 
 class AppElement extends LitElement {
@@ -74,4 +80,5 @@ define({
     }
   },
   "transactions-view": TransactionsViewElement,
+  "dashboard-view": DashboardViewElement,
 });

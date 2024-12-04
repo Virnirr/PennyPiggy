@@ -1,0 +1,126 @@
+import { define, View } from "@calpoly/mustang";
+import { css, html, PropertyValues } from "lit";
+import { property, state } from "lit/decorators.js";
+import { IUser, ITransactions } from "server/models";
+import { Model } from "../model";
+import { Msg } from "../messages";
+import reset from "../style/reset.css.ts"
+import page from "../style/page.css.ts"
+
+export class DashboardViewElement extends View<Model, Msg> {
+
+  @property() email?: string;
+
+  @state()
+  get transactions(): ITransactions[] | undefined {
+    return this.model.transactions;
+  }
+
+  @state()
+  get withdrawalAmount(): number | undefined {
+    return this.model.transactions?.reduce(
+      (acc, transaction) =>
+        transaction.transactionType === "withdrawal"
+          ? acc + transaction.amount
+          : acc,
+      0
+    );
+  }
+  
+  @state()
+  get depositAmount(): number | undefined {
+    return this.model.transactions?.reduce(
+      (acc, transaction) =>
+        transaction.transactionType === "deposit"
+          ? acc + transaction.amount
+          : acc,
+      0
+    );
+  }
+
+  @state()
+  get netAmount(): number | undefined {
+    console.log("this is the transactions", this.transactions)
+    if (this.depositAmount && this.withdrawalAmount) {
+      return this.depositAmount - this.withdrawalAmount;
+    }
+  }
+
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "email" && oldValue !== newValue && newValue) {
+      console.log("Message is dispatched");
+      this.dispatchMessage([
+        "transactions/select",
+        {
+          email: this.email as string,
+          onSuccess: () => {
+            console.log("Success");
+          },
+          onFailure: (err: Error) => {
+            console.log(err);
+          },
+        },
+      ]);
+    }
+  }
+
+  render() {
+    return html`
+  <main class="home">
+    <section class="section-flex-container">
+      <div class="flex-row in-and-out-period">
+        <svg class="icon" fill="#000000" width="800px" height="800px" viewBox="-3 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <path d="M25.76 14.92c0-0.040-0.040-0.2-0.080-0.32v0l-3.48-7.32c-0.080-0.24-0.36-0.44-0.64-0.44h-7.88v-1.8c0-0.48-0.36-0.84-0.84-0.84s-0.84 0.32-0.84 0.76v1.84h-7.76c-0.24 0-0.52 0.24-0.64 0.48l-3.52 7.28c-0.040 0.12-0.080 0.32-0.080 0.32v0c0 2.4 1.92 4.32 4.32 4.32s4.32-1.92 4.32-4.32v0c0-0.040 0-0.2-0.080-0.32v0l-2.92-6.12h6.36v17.72h-6.76c-0.48 0-0.84 0.36-0.84 0.84s0.36 0.84 0.84 0.84h15.2c0.48 0 0.84-0.36 0.84-0.84s-0.36-0.84-0.84-0.84h-6.76v-17.72h6.36l-2.92 6.12c-0.080 0.12-0.080 0.32-0.080 0.32v0c0 2.4 1.92 4.32 4.32 4.32 2.4 0.040 4.4-1.88 4.4-4.28v0zM4.32 9.56l2.16 4.52h-4.32l2.16-4.52zM4.32 17.56c-1.16 0-2.16-0.76-2.52-1.8h5c-0.32 1.040-1.32 1.8-2.48 1.8zM23.6 14.080h-4.36l2.16-4.52 2.2 4.52zM21.4 17.56c-1.16 0-2.16-0.76-2.52-1.8h5c-0.28 1.040-1.32 1.8-2.48 1.8z"></path>
+        </svg>
+        <div>
+          <h3>IN + OUT this period</h3>
+          <p>$${this.netAmount}</p>
+          <hr/>
+          <p>Deposit $${this.depositAmount} -  Withdrawal $${this.withdrawalAmount}</p>
+        </div>
+      </div>
+      <div class="bills-to-pay flex-row">
+        <svg class="icon" fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6,22H18a3,3,0,0,0,3-3V7a2,2,0,0,0-2-2H17V3a1,1,0,0,0-2,0V5H9V3A1,1,0,0,0,7,3V5H5A2,2,0,0,0,3,7V19A3,3,0,0,0,6,22ZM5,12.5a.5.5,0,0,1,.5-.5h13a.5.5,0,0,1,.5.5V19a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1Z"/></svg>
+        <div>
+          <h3>Bills to Pay</h3>
+          <p>$-207.50</p>
+          <hr/>
+          <p>Paid: $10</p>
+        </div>
+      </div>
+      <div class="left-to-spend flex-row">
+        <svg class="icon" width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 3V9M12 3L9.5 5.5M12 3L14.5 5.5M5.82333 9.00037C6.2383 9.36683 6.5 9.90285 6.5 10.5C6.5 11.6046 5.60457 12.5 4.5 12.5C3.90285 12.5 3.36683 12.2383 3.00037 11.8233M5.82333 9.00037C5.94144 9 6.06676 9 6.2 9H8M5.82333 9.00037C4.94852 9.00308 4.46895 9.02593 4.09202 9.21799C3.71569 9.40973 3.40973 9.71569 3.21799 10.092C3.02593 10.469 3.00308 10.9485 3.00037 11.8233M3.00037 11.8233C3 11.9414 3 12.0668 3 12.2V17.8C3 17.9332 3 18.0586 3.00037 18.1767M3.00037 18.1767C3.36683 17.7617 3.90285 17.5 4.5 17.5C5.60457 17.5 6.5 18.3954 6.5 19.5C6.5 20.0971 6.2383 20.6332 5.82333 20.9996M3.00037 18.1767C3.00308 19.0515 3.02593 19.5311 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.46895 20.9741 4.94852 20.9969 5.82333 20.9996M5.82333 20.9996C5.94144 21 6.06676 21 6.2 21H17.8C17.9332 21 18.0586 21 18.1767 20.9996M21 18.1771C20.6335 17.7619 20.0973 17.5 19.5 17.5C18.3954 17.5 17.5 18.3954 17.5 19.5C17.5 20.0971 17.7617 20.6332 18.1767 20.9996M21 18.1771C21.0004 18.0589 21 17.9334 21 17.8V12.2C21 12.0668 21 11.9414 20.9996 11.8233M21 18.1771C20.9973 19.0516 20.974 19.5311 20.782 19.908C20.5903 20.2843 20.2843 20.5903 19.908 20.782C19.5311 20.9741 19.0515 20.9969 18.1767 20.9996M20.9996 11.8233C20.6332 12.2383 20.0971 12.5 19.5 12.5C18.3954 12.5 17.5 11.6046 17.5 10.5C17.5 9.90285 17.7617 9.36683 18.1767 9.00037M20.9996 11.8233C20.9969 10.9485 20.9741 10.469 20.782 10.092C20.5903 9.71569 20.2843 9.40973 19.908 9.21799C19.5311 9.02593 19.0515 9.00308 18.1767 9.00037M18.1767 9.00037C18.0586 9 17.9332 9 17.8 9H16M14 15C14 16.1046 13.1046 17 12 17C10.8954 17 10 16.1046 10 15C10 13.8954 10.8954 13 12 13C13.1046 13 14 13.8954 14 15Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <h3>Budget Left to Spend</h3>
+          <p>$200</p>
+          <hr/>
+          <p>Per day: $100</p>
+        </div>
+      </div>
+      <div class="networth flex-row">
+        <svg class="icon" width="800px" height="800px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 3L9.00001 4L11.2929 6.29289L8.50001 9.08579L5.50001 6.08579L0.292908 11.2929L1.70712 12.7071L5.50001 8.91421L8.50001 11.9142L12.7071 7.70711L15 10L16 9L16 3H10Z" fill="#000000"/>
+        </svg>
+        <div>
+          <h3>Net Worth</h3>
+          <p>$100,000</p>
+          <hr/>
+        </div>
+      </div>
+    </section>
+  </main>
+    `;
+  }
+
+  constructor() {
+    super("pennypiggy:model");
+  }
+
+  static styles = [
+    page.styles,
+    reset.styles,
+  ]
+}

@@ -34,6 +34,26 @@ router.get("/:userEmail", (req: Request, res: Response) => {
     });
 });
 
+router.get("/:userEmail/:transactionType", (req: Request, res: Response) => {
+  const { userEmail, transactionType } = req.params;
+
+  usersSvc
+    .getByEmail(userEmail)
+    .then((user) => {
+      const userId = user._id as Schema.Types.ObjectId;
+      return transactionsSvc.getTransacitonWithUserIdAndType(
+        userId,
+        transactionType
+      );
+    })
+    .then((transactions) => {
+      res.json(transactions);
+    })
+    .catch((error) => {
+      res.status(404).send(error);
+    });
+});
+
 router.post("/", (req: Request, res: Response) => {
   const newTransaction = req.body as ITransactions;
 

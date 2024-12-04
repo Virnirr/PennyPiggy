@@ -1,18 +1,14 @@
 import { define, View } from "@calpoly/mustang";
-import { css, html } from "lit";
+import { css, html, PropertyValues } from "lit";
 import { property, state } from "lit/decorators.js";
-import {
-  IUser,
-  ITransactions,
-  IExpenseAccount,
-  ICategory,
-  IAssetAccount,
-} from "server/models";
+import { IUser, ITransactions } from "server/models";
 import { Model } from "../model";
 import { Msg } from "../messages";
 
 import { TransactionTableElement } from "../components/transactions-table";
 import { TransactionsHistoryElement } from "../components/history-col-component";
+
+import Chart from 'chart.js/auto';
 
 export class TransactionsViewElement extends View<Model, Msg> {
   static uses = define({
@@ -28,17 +24,48 @@ export class TransactionsViewElement extends View<Model, Msg> {
     return this.model.users;
   }
 
-  @state()
-  get transactions(): ITransactions[] | undefined {
-    return this.model.transactions;
+  @property()
+  get transactions(): ITransactions[] {
+    return this.model.transactions || [];
   }
 
-  render() {
+  @state()
+  chart: any | undefined;
+
+  firstUpdated() {
+    const ctx = this.renderRoot.querySelector('#myChart') as HTMLCanvasElement;
+    const ctx2 = this.renderRoot.querySelector('#myChart2') as HTMLCanvasElement;
+    const ctx3 = this.renderRoot.querySelector('#myChart3') as HTMLCanvasElement;
+
+    const data = {
+      labels: [
+        'Red',
+        'Blue',
+        'Yellow'
+      ],
+      datasets: [{
+        label: 'My First Dataset',
+        data: [300, 50, 100],
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 4
+      }]
+    };
+    
+    new Chart(ctx, {type: 'pie',data: data,})
+    new Chart(ctx2, {type: 'pie', data: data,});
+    new Chart(ctx3, {type: 'pie', data: data});
+  }
+
+  render() {  
     return html`
       <main class="transactions">
-        <section class="transactions-graph">Some Graph</section>
-        <section class="transactions-graph">Some Graph</section>
-        <section class="transactions-graph">Some Graph</section>
+        <canvas id="myChart" class="transactions-graph"></canvas>
+        <canvas id="myChart2" class="transactions-graph"></canvas>
+        <canvas id="myChart3" class="transactions-graph">Some Graph</canvas>
         <transactions-table class="transactions-history"></transactions-table>
         <section>${this.renderHistory()}</section>
       </main>
@@ -116,22 +143,29 @@ export class TransactionsViewElement extends View<Model, Msg> {
         justify-content: space-evenly;
         gap: var(--size-padding);
         width: 100%;
+        margin-bottom: 150px;
       }
 
       .transactions {
         display: grid;
         grid-template-columns: [start] repeat(var(--page-grid), 1fr) [end];
         column-gap: calc(var(--size-padding));
+        row-gap: 100px;
       }
 
       .transactions > .transactions-graph {
         grid-column: span 2; /* Makes the transactions-graph span 2 columns */
-        padding: 5em;
       }
 
       .transactions-history {
         grid-column: span 5;
       }
+
+      #myChart, #myChart2, #myChart3 {
+        width: 100% !important;
+        height: auto !important;
+      }
+
     `,
   ];
 

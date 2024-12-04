@@ -46,22 +46,22 @@ export class PennyHeaderElement extends LitElement {
             <ul class="navbar-container">
               ${this.authenticated ? html `              
                 <li class="navbar-item">
-                <a href="dashboard.html">Dashboard</a>
+                <a href="/app/dashboard/${this.email}">Dashboard</a>
               </li>
               <!-- Dropdown for Transactions -->
-              <li class="navbar-item dropdown">
-                <a href="transactions.html" class="dropbtn">Transactions</a>
-                <div class="dropdown-content">
-                  <a href="/transactions/john.doe@example.com">Withdrawal</a>
-                  <a href="/transactions/john.doe@example.com">Deposit</a>
-                </div>
+              <li class="navbar-item">
+                <a href="/app/transactions/${this.email}" class="dropbtn">Transactions</a>
               </li>
 
               <li class="navbar-item"><a href="/budget.html">Budget</a></li>
               <li class="navbar-item"><a href="/bills.html">Bills</a></li>
               <li class="navbar-item">
                 <a href="/asset_account.html">Asset Account</a>
-              </li>`
+              </li>
+              <li class="navbar-item">
+                <a href="/app/users/${this.email}">Profile</a>
+              </li>
+              `
                : null}
               
               ${!this.authenticated ? html`
