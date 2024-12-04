@@ -65,8 +65,8 @@ export class PennyHeaderElement extends LitElement {
                : null}
               
               ${!this.authenticated ? html`
-                <li class="navbar-item"><a href="/app/auth">Login</a></li>
-                <li class="navbar-item"><a href="/signup">SignUp</a></li>
+                <li class="navbar-item"><a href="/app/login">Login</a></li>
+                <li class="navbar-item"><a href="/app/register">SignUp</a></li>
                 ` : null}
               <mu-dropdown class="navbar-item">
                 <a slot="actuator">
@@ -78,7 +78,7 @@ export class PennyHeaderElement extends LitElement {
                     <a id="signout" @click=${(e: MouseEvent) => this.handleSignOut(e)}>Sign Out</a>
                   </li>
                   <li class="when-signed-out">
-                    <a href="/login">Sign In</a>
+                    <a href="/app/login">Sign In</a>
                   </li>
                 </menu>
               </mu-dropdown>

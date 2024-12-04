@@ -1,22 +1,9 @@
-import { Auth, define, Form, Observer, View } from "@calpoly/mustang";
-import { css, html, LitElement } from "lit";
+import { define, Form, View } from "@calpoly/mustang";
+import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
 import { IUser } from "server/models";
 import { Model } from "../model";
 import { Msg } from "../messages";
-
-interface MuFormSubmitDetail {
-  formData: Record<string, string>; // Example structure, modify as needed
-}
-
-interface UserCredentails {
-  authenticated: boolean;
-  token?: string;
-  username?: {
-    email: string;
-    password: string;
-  };
-}
 
 export class PennyProfileElement extends View<Model, Msg> {
   static uses = define({
@@ -65,7 +52,7 @@ export class PennyProfileElement extends View<Model, Msg> {
           </dl>
           <button id="edit" @click=${this.handleChangeEdit}>Edit</button>
         </section>
-        <mu-form class="edit" .init=${{...this.user}}>
+        <mu-form class="edit" .init=${{...this.user}} @mu-form:submit=${this._handleSubmit}>
           <label>
             <span>Username</span>
             <input name="username" required />
@@ -166,28 +153,19 @@ export class PennyProfileElement extends View<Model, Msg> {
 
   constructor() {
     super("pennypiggy:model");
-
-    this.addEventListener("mu-form:submit", (event: Event) => {
-      const customEvent = event as CustomEvent<MuFormSubmitDetail>;
-
-      console.log("users detail", customEvent.detail);
-      this.submit(customEvent.detail as unknown as IUser);
-    });
   }
 
-  submit(userData: IUser) {
+  _handleSubmit(event: Form.SubmitEvent<IUser>) {
     this.dispatchMessage([
       "users/save",
       {
         email: this.email as string,
-        users: userData,
-        onSuccess: () => {
-          this.mode = "view";
-        },
-        onFailure: (err: Error) => {
-          console.error("Error saving user data:", err);
-        },
-      },
+        users: event.detail,
+        onSuccess: () =>
+          this.mode = "view",
+        onFailure: (error: Error) =>
+          console.log("ERROR:", error)
+      }
     ]);
   }
 

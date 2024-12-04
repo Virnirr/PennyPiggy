@@ -162,11 +162,11 @@ li > a:hover {
   [start] repeat(2, 1fr) [end];
   gap: calc(var(--size-padding) * 2);
 
-  & > img, & > button {
+  & > img, & > a {
     justify-self: end
   }
 
-  & > button {
+  & > a {
     margin-right: calc(var(--size-padding) * 2);
   }
 }

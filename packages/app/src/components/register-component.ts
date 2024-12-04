@@ -1,29 +1,33 @@
 import { LitElement, css, html } from "lit";
 import { property } from "lit/decorators.js";
 
-export class LoginFormElement extends LitElement {
+export class RegisterFormElement extends LitElement {
   @property()
-  api: string = "/auth/login";
+  api: string = "/auth/register";
 
   render() {
     return html`
-      <form @submit=${(e: Event) => this.submitLoginForm(e, this.api, "/app")}>
+      <form @submit=${(e: Event) => this.submitRegisterForm(e, this.api, "/app")}>
         <h3 class="title">
-          Sign in with Username and Password
+          Sign up with Username, Email, and Password
         </h3>
         <label>
           <span>Email:</span>
           <input name="email" type="email" autocomplete="off" required />
         </label>
         <label>
+          <span>Username:</span>
+          <input name="username" type="text" required />
+        </label>
+        <label>
           <span>Password:</span>
           <input type="password" name="password" required />
         </label>
-        <button type="submit">Sign In</button>
-        <p class="register">
+        <button type="submit">Sign Up</button>
+        <p class="login">
             Or did you want to
-            <a href="/app/register">
-              register as a new user
+            <a href="/app/login">
+              login as existing character
             </a>
             ?
         </p>
@@ -77,7 +81,7 @@ export class LoginFormElement extends LitElement {
     super.connectedCallback();
   }
 
-  submitLoginForm(event: Event, endpoint: string, redirect: string): void {
+  submitRegisterForm(event: Event, endpoint: string, redirect: string): void {
     event.preventDefault();
 
     const target = event.target as HTMLFormElement | null; // Ensure the target is an HTMLFormElement
@@ -97,7 +101,7 @@ export class LoginFormElement extends LitElement {
 
     fetch(endpoint, { method, headers, body })
       .then((res) => {
-        if (res.status !== 200) {
+        if (res.status !== 201) {
           throw new Error(`Form submission failed: Status ${res.status}`);
         }
         return res.json();

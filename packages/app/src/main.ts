@@ -9,6 +9,7 @@ import { PennyHeaderElement } from "./components/penny-header";
 import { PennyProfileElement } from "./views/pennyprofile-view";
 import { HomePageElement } from "./views/home-view";
 import { AuthViewElement } from "./views/auth-view";
+import { TransactionsViewElement } from "./views/transaction-view";
 
 const routes = [
   {
@@ -26,8 +27,17 @@ const routes = [
     redirect: "/app",
   },
   {
-    path: "/app/auth",
-    view: () => html` <pennypiggy-auth></pennypiggy-auth> `,
+    path: "/app/login",
+    view: () => html` <pennypiggy-auth view="login"></pennypiggy-auth> `,
+  },
+  {
+    path: "/app/register",
+    view: () => html` <pennypiggy-auth view="register"></pennypiggy-auth> `,
+  },
+  {
+    path: "/app/transactions/:id",
+    view: (params: Switch.Params) =>
+      html` <transactions-view email=${params.id}></transactions-view> `,
   },
 ];
 
@@ -63,4 +73,5 @@ define({
       super(update, init, "pennypiggy:auth");
     }
   },
+  "transactions-view": TransactionsViewElement,
 });

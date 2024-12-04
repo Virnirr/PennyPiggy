@@ -26,47 +26,6 @@ export class TableElement extends HTMLElement {
           <!-- Add more rows as needed -->
         </div>
       </section>
-
-      <mu-form class="edit">
-        <label>
-          <span>Description</span>
-          <input name="description" />
-        </label>
-        <label>
-          <span>Source Account (Bank):</span>
-          <input name="sourceAccount" />
-        </label>
-        <label>
-          <span>Destination Account</span>
-          <input name="destinationAccount" />
-        </label>
-        <label>
-          <span>Amount</span>
-          <input name="amount" />
-        </label>
-        <label>
-          <span>Date</span>
-          <input name="date" type="date"/>
-        </label>
-        <label>
-          <span>Category</span>
-          <input name="category" />
-        </label>
-        <label>
-          <span>Tags</span>
-          <input name="tags" />
-        </label>
-        <label>
-          <span>Notes</span>
-          <input name="notes" />
-        </label>
-        <label>
-          <span>Airports</span>
-          <input-array name="airports">
-            <span slot="label-add">Add an airport</span>
-          </input-array>
-        </label>
-      </mu-form>
     </template>
   `;
 

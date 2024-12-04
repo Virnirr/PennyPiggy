@@ -21,7 +21,7 @@ export class HomePageElement extends LitElement {
               Keep track of your expenses and income
             </h3>
           </div>
-          <button>Get Started</button>
+          <a href="/app/register"><button>Get Started</button></a>
         </section>
       </header>
       <main class="home">
