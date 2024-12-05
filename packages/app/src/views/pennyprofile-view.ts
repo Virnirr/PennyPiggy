@@ -33,7 +33,7 @@ export class PennyProfileElement extends View<Model, Msg> {
   }
 
   render() {
-    const { username, email, nickname, color, avatar, goal } = this.user || {};
+    const { username, email, nickname, avatar, goal } = this.user || {};
     console.log("user", this.user);
     return html`
       <main class="page">

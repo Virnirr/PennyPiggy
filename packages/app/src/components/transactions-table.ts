@@ -8,7 +8,6 @@ import {
   ICategory,
   IExpenseAccount,
   ITransactions,
-  IUser,
 } from "server/models";
 
 const options: Intl.DateTimeFormatOptions = {

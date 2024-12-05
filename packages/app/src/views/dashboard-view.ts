@@ -1,7 +1,7 @@
-import { define, View } from "@calpoly/mustang";
-import { css, html, PropertyValues } from "lit";
+import { View } from "@calpoly/mustang";
+import { html } from "lit";
 import { property, state } from "lit/decorators.js";
-import { IUser, ITransactions } from "server/models";
+import { ITransactions } from "server/models";
 import { Model } from "../model";
 import { Msg } from "../messages";
 import reset from "../style/reset.css.ts"
