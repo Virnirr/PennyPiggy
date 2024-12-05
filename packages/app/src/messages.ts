@@ -1,4 +1,4 @@
-import { ITransactions, IUser, Credential } from "server/models";
+import { ITransactions, IUser } from "server/models";
 
 export type Msg =
   | ["users/select", { email: string }]

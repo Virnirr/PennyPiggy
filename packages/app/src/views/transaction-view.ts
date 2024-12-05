@@ -1,5 +1,5 @@
 import { define, View, History } from "@calpoly/mustang";
-import { css, html, PropertyValues } from "lit";
+import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
 import { IUser, ITransactions, ICategory } from "server/models";
 import { Model } from "../model";

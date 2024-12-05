@@ -1,11 +1,10 @@
 import { define, Form, InputArray, View, History } from "@calpoly/mustang";
-import { css, html, PropertyValues } from "lit";
+import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
-import { IUser, ITransactions, IAssetAccount, IExpenseAccount, ICategory} from "server/models";
+import { ITransactions, IAssetAccount, IExpenseAccount, ICategory} from "server/models";
 import { Model } from "../model";
 import { Msg } from "../messages";
 import reset from "../style/reset.css.ts";
-import page from "../style/page.css.ts";
 
 function isAssetAccount(account: any): account is IAssetAccount {
   return (
