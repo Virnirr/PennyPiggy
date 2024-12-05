@@ -52,12 +52,6 @@ export class PennyHeaderElement extends LitElement {
               <li class="navbar-item">
                 <a href="/app/transactions/${this.email}" class="dropbtn">Transactions</a>
               </li>
-
-              <li class="navbar-item"><a href="/budget.html">Budget</a></li>
-              <li class="navbar-item"><a href="/bills.html">Bills</a></li>
-              <li class="navbar-item">
-                <a href="/asset_account.html">Asset Account</a>
-              </li>
               <li class="navbar-item">
                 <a href="/app/users/${this.email}">Profile</a>
               </li>
@@ -76,9 +70,6 @@ export class PennyHeaderElement extends LitElement {
                 <menu>
                   <li class="when-signed-in">
                     <a id="signout" @click=${(e: MouseEvent) => this.handleSignOut(e)}>Sign Out</a>
-                  </li>
-                  <li class="when-signed-out">
-                    <a href="/app/login">Sign In</a>
                   </li>
                 </menu>
               </mu-dropdown>

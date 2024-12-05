@@ -47,8 +47,6 @@ export class PennyProfileElement extends View<Model, Msg> {
             <dd>${nickname}</dd>
             <dt>Goal</dt>
             <dd>${goal}</dd>
-            <dt>color</dt>
-            <dd>${color}</dd>
           </dl>
           <button id="edit" @click=${this.handleChangeEdit}>Edit</button>
         </section>
@@ -69,10 +67,6 @@ export class PennyProfileElement extends View<Model, Msg> {
             <span>Goal</span>
             <input name="goal" />
           </label>
-          <label>
-            <span>Color</span>
-            <input name="color" />
-          </label>
 
           <label>
             <span>Avatar</span>
@@ -86,6 +80,7 @@ export class PennyProfileElement extends View<Model, Msg> {
       </main>
     `;
   }
+
   handleChangeEdit() {
     this.mode = "edit";
   }
@@ -147,6 +142,12 @@ export class PennyProfileElement extends View<Model, Msg> {
       }
       mu-form.edit {
         display: var(--display-editor-none, grid);
+        padding: 5% 25% 0% 25%;
+
+        & > label {
+          margin-bottom: 1rem;
+          height: var(--size-spacing-medium)
+        }
       }
     `,
   ];
@@ -156,12 +157,15 @@ export class PennyProfileElement extends View<Model, Msg> {
   }
 
   _handleSubmit(event: Form.SubmitEvent<IUser>) {
-    
+
+    const userData = {...event.detail, avatar: this.user?.avatar};
+    if (this.avatar) userData.avatar = this.avatar;
+
     this.dispatchMessage([
       "users/save",
       {
         email: this.email as string,
-        users: {...event.detail, avatar: this.avatar},
+        users: userData,
         onSuccess: () =>
           this.mode = "view",
         onFailure: (error: Error) =>

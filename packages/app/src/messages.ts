@@ -27,4 +27,12 @@ export type Msg =
         onSuccess?: () => void;
         onFailure?: (err: Error) => void;
       }
-    ];
+    ]
+  | [
+    "transactions/delete",
+    {
+      transactionId: string;
+      onSuccess?: () => void;
+      onFailure?: (err: Error) => void;
+    }
+  ];

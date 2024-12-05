@@ -7,6 +7,9 @@ import credentialSvc from "services/credential-svc";
 import transactionsSvc from "../services/transactions-svc";
 
 import { Schema } from "mongoose";
+import assetaccountSvc from "../services/assetaccount-svc";
+import expenseaccountSvc from "../services/expenseaccount-svc";
+import categorySvc from "../services/category-svc";
 
 const router = express.Router();
 
@@ -55,12 +58,30 @@ router.get("/:userEmail/:transactionType", (req: Request, res: Response) => {
 });
 
 router.post("/", (req: Request, res: Response) => {
-  const newTransaction = req.body as ITransactions;
+  const newTransaction = req.body;
+  const { user, sourceAccount, destinationAccount, category } = newTransaction;
 
-  transactionsSvc
-    .create(newTransaction)
-    .then((transaction) => res.status(201).json(transaction))
-    .catch((err) => res.status(500).send(err));
+  console.log("this is the new transactions", newTransaction);
+
+  Promise.all([
+    usersSvc.getByEmail(user),
+    assetaccountSvc.get(sourceAccount),
+    expenseaccountSvc.get(destinationAccount),
+    categorySvc.get(category),
+  ]).then(([user, sourceAccount, destinationAccount, category]) => {
+    transactionsSvc
+      .create({
+        ...newTransaction,
+        tags: newTransaction.tags.split(" "),
+        user: user._id,
+        sourceAccount: sourceAccount._id,
+        destinationAccount: destinationAccount._id,
+        category: category._id,
+        date: new Date(),
+      })
+      .then((transaction) => res.status(201).json(transaction))
+      .catch((err) => res.status(500).send(err));
+  });
 });
 
 router.put("/:transactionId", (req: Request, res: Response) => {

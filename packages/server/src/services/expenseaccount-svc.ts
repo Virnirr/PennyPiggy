@@ -17,6 +17,15 @@ function index(): Promise<IExpenseAccount[]> {
   return ExpenseAccountModel.find();
 }
 
+function get(expenseAccount: string): Promise<IExpenseAccount> {
+  return ExpenseAccountModel.findOne({ accountName: expenseAccount })
+    .then((doc: unknown) => doc as IExpenseAccount)
+    .catch((error: Error) => {
+      console.log(error);
+      throw `${expenseAccount} Not Found`;
+    });
+}
+
 function create(assetAccount: IExpenseAccount): Promise<IExpenseAccount> {
   const newExpenseAccount = new ExpenseAccountModel(assetAccount);
   return newExpenseAccount.save();
@@ -37,6 +46,7 @@ function update(assetAccountId: string, assetAccount: IExpenseAccount): Promise<
 
 export default {
   index,
+  get,
   create,
   update
 }

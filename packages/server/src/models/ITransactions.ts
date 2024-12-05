@@ -4,7 +4,7 @@ import { IUser } from "./IUsers"
 import { Schema } from "mongoose"
 
 export interface ITransactions {
-  _id?: Schema.Types.ObjectId,
+  _id?: Schema.Types.ObjectId | string,
   user: IUser | Schema.Types.ObjectId, // going to be reference id in MongoDB
   transactionType: TransactionType,
   description: string,

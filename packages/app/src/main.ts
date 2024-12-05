@@ -11,6 +11,7 @@ import { HomePageElement } from "./views/home-view";
 import { AuthViewElement } from "./views/auth-view";
 import { TransactionsViewElement } from "./views/transaction-view";
 import { DashboardViewElement } from "./views/dashboard-view";
+import { TransactionEditView } from "./views/transaction-edit";
 
 const routes = [
   {
@@ -38,12 +39,22 @@ const routes = [
   {
     path: "/app/transactions/:id",
     view: (params: Switch.Params) =>
-      html` <transactions-view email=${params.id}></transactions-view> `,
+      html` <transactions-view email=${params.id} category=${params.category}></transactions-view> `,
+  },
+  {
+    path: "/app/transactions/:id/category/:category",
+    view: (params: Switch.Params) =>
+      html` <transactions-view email=${params.id} category=${params.category}></transactions-view> `,
   },
   {
     path: "/app/dashboard/:id",
     view: (params: Switch.Params) =>
       html` <dashboard-view email=${params.id}></dashboard-view> `,
+  },
+  {
+    path: "/app/transactions/:id/edit",
+    view: (params: Switch.Params) =>
+      html` <transactions-edit email=${params.id}></transactions-edit> `,
   }
 ];
 
@@ -81,4 +92,5 @@ define({
   },
   "transactions-view": TransactionsViewElement,
   "dashboard-view": DashboardViewElement,
+  "transactions-edit": TransactionEditView,
 });
